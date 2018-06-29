@@ -50,13 +50,11 @@ variable "alb_arn_suffix" {
 variable "target_group_name" {
   type        = "string"
   description = "The name of the ALB Target Group to monitor."
-  default     = ""
 }
 
 variable "target_group_arn_suffix" {
   type        = "string"
   description = "The ARN suffix of ALB Target Group."
-  default     = ""
 }
 
 variable "evaluation_periods" {

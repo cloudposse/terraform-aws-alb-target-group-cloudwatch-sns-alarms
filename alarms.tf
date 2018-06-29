@@ -30,14 +30,8 @@ locals {
   }
 
   dimensions_map = {
-    "targetgroup" = {
-      "TargetGroup"  = "${join("/", list("targetgroup", var.target_group_name, var.target_group_arn_suffix))}"
-      "LoadBalancer" = "${join("/", list("app", var.alb_name, var.alb_arn_suffix))}"
-    }
-
-    "loadbalancer" = {
-      "LoadBalancer" = "${join("/", list("app", var.alb_name, var.alb_arn_suffix))}"
-    }
+    "TargetGroup"  = "${join("/", list("targetgroup", var.target_group_name, var.target_group_arn_suffix))}"
+    "LoadBalancer" = "${join("/", list("app", var.alb_name, var.alb_arn_suffix))}"
   }
 }
 
@@ -55,7 +49,7 @@ resource "aws_cloudwatch_metric_alarm" "httpcode_target_3xx_count" {
   alarm_actions       = ["${aws_sns_topic.default.arn}"]
   ok_actions          = ["${aws_sns_topic.default.arn}"]
 
-  dimensions = "${local.dimensions_map[var.target_group_name == "" ? "loadbalancer" : "targetgroup"]}"
+  dimensions = "${local.dimensions_map}"
 }
 
 resource "aws_cloudwatch_metric_alarm" "httpcode_target_4xx_count" {
@@ -72,7 +66,7 @@ resource "aws_cloudwatch_metric_alarm" "httpcode_target_4xx_count" {
   alarm_actions       = ["${aws_sns_topic.default.arn}"]
   ok_actions          = ["${aws_sns_topic.default.arn}"]
 
-  dimensions = "${local.dimensions_map[var.target_group_name == "" ? "loadbalancer" : "targetgroup"]}"
+  dimensions = "${local.dimensions_map}"
 }
 
 resource "aws_cloudwatch_metric_alarm" "httpcode_target_5xx_count" {
@@ -89,7 +83,7 @@ resource "aws_cloudwatch_metric_alarm" "httpcode_target_5xx_count" {
   alarm_actions       = ["${aws_sns_topic.default.arn}"]
   ok_actions          = ["${aws_sns_topic.default.arn}"]
 
-  dimensions = "${local.dimensions_map[var.target_group_name == "" ? "loadbalancer" : "targetgroup"]}"
+  dimensions = "${local.dimensions_map}"
 }
 
 resource "aws_cloudwatch_metric_alarm" "target_response_time" {
@@ -106,5 +100,5 @@ resource "aws_cloudwatch_metric_alarm" "target_response_time" {
   alarm_actions       = ["${aws_sns_topic.default.arn}"]
   ok_actions          = ["${aws_sns_topic.default.arn}"]
 
-  dimensions = "${local.dimensions_map[var.target_group_name == "" ? "loadbalancer" : "targetgroup"]}"
+  dimensions = "${local.dimensions_map}"
 }
