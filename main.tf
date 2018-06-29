@@ -1,8 +1,23 @@
 data "aws_caller_identity" "default" {}
 
+module "default_label" {
+  source    = "git::https://github.com/cloudposse/terraform-terraform-label.git?ref=tags/0.1.3"
+  name      = "${var.name}"
+  namespace = "${var.namespace}"
+  stage     = "${var.stage}"
+}
+
+module "sns_topic_label" {
+  source     = "git::https://github.com/cloudposse/terraform-terraform-label.git?ref=tags/0.1.3"
+  name       = "${var.name}"
+  namespace  = "${var.namespace}"
+  stage      = "${var.stage}"
+  attributes = "${compact(concat(var.attributes, list("alarms")))}"
+}
+
 locals {
   enabled          = "${var.enabled == "true" ? 1 : 0}"
-  create_sns_topic = "${var.sns_topic_name == "" ? 1 : 0}"
+  create_sns_topic = "${var.create_sns_topic == "true" ? 1 : 0}"
 }
 
 data "aws_sns_topic" "default" {
@@ -13,7 +28,7 @@ data "aws_sns_topic" "default" {
 # Create an SNS topic if one is not passed
 resource "aws_sns_topic" "default" {
   count       = "${local.enabled * local.create_sns_topic}"
-  name_prefix = "ecs-service-threshold-alerts"
+  name_prefix = "${module.sns_topic_label.id}"
 }
 
 locals {

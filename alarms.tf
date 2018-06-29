@@ -1,26 +1,3 @@
-module "default_label" {
-  source    = "git::https://github.com/cloudposse/terraform-terraform-label.git?ref=tags/0.1.3"
-  name      = "${var.name}"
-  namespace = "${var.namespace}"
-  stage     = "${var.stage}"
-}
-
-module "httpcode_alarm_label" {
-  source     = "git::https://github.com/cloudposse/terraform-terraform-label.git?ref=tags/0.1.3"
-  name       = "${var.name}"
-  namespace  = "${var.namespace}"
-  stage      = "${var.stage}"
-  attributes = "${compact(concat(var.attributes, list("%v", "count", "high")))}"
-}
-
-module "target_response_time_alarm_label" {
-  source     = "git::https://github.com/cloudposse/terraform-terraform-label.git?ref=tags/0.1.3"
-  name       = "${var.name}"
-  namespace  = "${var.namespace}"
-  stage      = "${var.stage}"
-  attributes = "${compact(concat(var.attributes, list("target", "response", "high")))}"
-}
-
 locals {
   thresholds = {
     Target3XXCountThreshold     = "${max(var.target_3xx_count_threshold, 0)}"
@@ -33,6 +10,14 @@ locals {
     "TargetGroup"  = "${join("/", list("targetgroup", var.target_group_name, var.target_group_arn_suffix))}"
     "LoadBalancer" = "${join("/", list("app", var.alb_name, var.alb_arn_suffix))}"
   }
+}
+
+module "httpcode_alarm_label" {
+  source     = "git::https://github.com/cloudposse/terraform-terraform-label.git?ref=tags/0.1.3"
+  name       = "${var.name}"
+  namespace  = "${var.namespace}"
+  stage      = "${var.stage}"
+  attributes = "${compact(concat(var.attributes, list("%v", "count", "high")))}"
 }
 
 resource "aws_cloudwatch_metric_alarm" "httpcode_target_3xx_count" {
@@ -86,7 +71,15 @@ resource "aws_cloudwatch_metric_alarm" "httpcode_target_5xx_count" {
   dimensions = "${local.dimensions_map}"
 }
 
-resource "aws_cloudwatch_metric_alarm" "target_response_time" {
+module "target_response_time_alarm_label" {
+  source     = "git::https://github.com/cloudposse/terraform-terraform-label.git?ref=tags/0.1.3"
+  name       = "${var.name}"
+  namespace  = "${var.namespace}"
+  stage      = "${var.stage}"
+  attributes = "${compact(concat(var.attributes, list("target", "response", "high")))}"
+}
+
+resource "aws_cloudwatch_metric_alarm" "target_response_time_average" {
   count               = "${local.enabled}"
   alarm_name          = "${format(module.target_response_time_alarm_label.id)}"
   comparison_operator = "GreaterThanThreshold"

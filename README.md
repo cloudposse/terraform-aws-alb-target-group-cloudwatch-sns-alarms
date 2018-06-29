@@ -47,6 +47,7 @@ module "alb_alarms" {
 | alb_arn_suffix | The ARN suffix of ALB. | string | - | yes |
 | alb_name | The name of ALB to monitor. | string | - | yes |
 | attributes | List of attributes to add to label. | list | `<list>` | no |
+| create_sns_topic | Determines if a new sns topic will be generated. If set to false, the existing sns_topic_name variable must be set. | string | `true` | no |
 | delimiter | The delimiter to be used in labels. | string | `-` | no |
 | enabled | Whether to create all resources. | string | `true` | no |
 | evaluation_periods | Number of periods to evaluate for the alarm. | string | `1` | no |
