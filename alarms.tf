@@ -46,8 +46,8 @@ resource "aws_cloudwatch_metric_alarm" "httpcode_target_3xx_count" {
   statistic           = "Sum"
   threshold           = "${local.thresholds["Target3XXCountThreshold"]}"
   alarm_description   = "${format(var.httpcode_alarm_description, "3XX", module.default_label.id, local.thresholds["Target3XXCountThreshold"], var.period/60, var.evaluation_periods)}"
-  alarm_actions       = ["${aws_sns_topic.default.arn}"]
-  ok_actions          = ["${aws_sns_topic.default.arn}"]
+  alarm_actions       = ["${local.sns_topic_arn}", "${var.additional_notify_arns}"]
+  ok_actions          = ["${local.sns_topic_arn}", "${var.additional_notify_arns}"]
 
   dimensions = "${local.dimensions_map}"
 }
@@ -63,8 +63,8 @@ resource "aws_cloudwatch_metric_alarm" "httpcode_target_4xx_count" {
   statistic           = "Sum"
   threshold           = "${local.thresholds["Target4XXCountThreshold"]}"
   alarm_description   = "${format(var.httpcode_alarm_description, "4XX", module.default_label.id, local.thresholds["Target4XXCountThreshold"], var.period/60, var.evaluation_periods)}"
-  alarm_actions       = ["${aws_sns_topic.default.arn}"]
-  ok_actions          = ["${aws_sns_topic.default.arn}"]
+  alarm_actions       = ["${local.sns_topic_arn}", "${var.additional_notify_arns}"]
+  ok_actions          = ["${local.sns_topic_arn}", "${var.additional_notify_arns}"]
 
   dimensions = "${local.dimensions_map}"
 }
@@ -80,8 +80,8 @@ resource "aws_cloudwatch_metric_alarm" "httpcode_target_5xx_count" {
   statistic           = "Sum"
   threshold           = "${local.thresholds["Target5XXCountThreshold"]}"
   alarm_description   = "${format(var.httpcode_alarm_description, "5XX", module.default_label.id, local.thresholds["Target5XXCountThreshold"], var.period/60, var.evaluation_periods)}"
-  alarm_actions       = ["${aws_sns_topic.default.arn}"]
-  ok_actions          = ["${aws_sns_topic.default.arn}"]
+  alarm_actions       = ["${local.sns_topic_arn}", "${var.additional_notify_arns}"]
+  ok_actions          = ["${local.sns_topic_arn}", "${var.additional_notify_arns}"]
 
   dimensions = "${local.dimensions_map}"
 }
@@ -97,8 +97,8 @@ resource "aws_cloudwatch_metric_alarm" "target_response_time" {
   statistic           = "Average"
   threshold           = "${local.thresholds["TargetResponseTimeThreshold"]}"
   alarm_description   = "${format(var.target_response_time_alarm_description, module.default_label.id, local.thresholds["TargetResponseTimeThreshold"], var.period/60, var.evaluation_periods)}"
-  alarm_actions       = ["${aws_sns_topic.default.arn}"]
-  ok_actions          = ["${aws_sns_topic.default.arn}"]
+  alarm_actions       = ["${local.sns_topic_arn}", "${var.additional_notify_arns}"]
+  ok_actions          = ["${local.sns_topic_arn}", "${var.additional_notify_arns}"]
 
   dimensions = "${local.dimensions_map}"
 }

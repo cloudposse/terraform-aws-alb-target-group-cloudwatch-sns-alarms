@@ -1,23 +1,33 @@
 data "aws_caller_identity" "default" {}
 
 locals {
-  enabled = "${var.enabled == "true" ? 1 : 0}"
+  enabled          = "${var.enabled == "true" ? 1 : 0}"
+  create_sns_topic = "${var.sns_topic_name == "" ? 1 : 0}"
 }
 
-# Make a topic
+data "aws_sns_topic" "default" {
+  count = "${(1 - local.create_sns_topic) * local.enabled}"
+  name  = "${var.sns_topic_name}"
+}
+
+# Create an SNS topic if one is not passed
 resource "aws_sns_topic" "default" {
-  count       = "${local.enabled}"
+  count       = "${local.enabled * local.create_sns_topic}"
   name_prefix = "ecs-service-threshold-alerts"
 }
 
+locals {
+  sns_topic_arn = "${element(compact(concat(aws_sns_topic.default.*.arn, data.aws_sns_topic.default.*.arn, list(""))), 0)}"
+}
+
 resource "aws_sns_topic_policy" "default" {
-  count  = "${local.enabled}"
-  arn    = "${aws_sns_topic.default.arn}"
+  count  = "${local.enabled * local.create_sns_topic}"
+  arn    = "${local.sns_topic_arn}"
   policy = "${data.aws_iam_policy_document.sns_topic_policy.json}"
 }
 
 data "aws_iam_policy_document" "sns_topic_policy" {
-  count = "${local.enabled}"
+  count = "${local.enabled * local.create_sns_topic}"
 
   statement {
     actions = [
@@ -33,7 +43,7 @@ data "aws_iam_policy_document" "sns_topic_policy" {
     ]
 
     effect    = "Allow"
-    resources = ["${aws_sns_topic.default.arn}"]
+    resources = ["${local.sns_topic_arn}"]
 
     principals {
       type        = "AWS"
@@ -53,7 +63,7 @@ data "aws_iam_policy_document" "sns_topic_policy" {
   statement {
     sid       = "Allow CloudwatchEvents"
     actions   = ["sns:Publish"]
-    resources = ["${aws_sns_topic.default.arn}"]
+    resources = ["${local.sns_topic_arn}"]
 
     principals {
       type        = "Service"
