@@ -59,7 +59,6 @@ variable "target_group_arn_suffix" {
   default     = ""
 }
 
-
 variable "evaluation_periods" {
   type        = "string"
   description = "Number of periods to evaluate for the alarm."
@@ -97,9 +96,9 @@ variable "httpcode_alarm_description" {
 }
 
 variable "target_response_time_threshold" {
-  type = "string"
+  type        = "string"
   description = "The maximum average target response time (in seconds) over a period."
-  default = "0.5"
+  default     = "0.5"
 }
 
 variable "target_response_time_alarm_description" {
