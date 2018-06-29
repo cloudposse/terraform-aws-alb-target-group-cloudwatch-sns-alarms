@@ -1,17 +1,14 @@
 provider "aws" {
-  region = "eu-west-2"
+  region = "us-west-2"
 }
 
-module "alarms" {
-  source       = "../"
-  namespace    = "cp"
-  stage        = "prod"
-  name         = "app"
-  cluster_name = "${aws_ecs_cluster.default.name}"
-  service_name = ""
-  enabled      = "true"
-}
-
-resource "aws_ecs_cluster" "default" {
-  name = "cp-prod-app"
+module "alb_alarms" {
+  source                  = "../"
+  name                    = "${var.name}"
+  namespace               = "${var.namespace}"
+  stage                   = "${var.stage}"
+  alb_name                = "sv-staging-app-alb"
+  alb_arn_suffix          = "XXXXXXXXXXXXXXX"
+  target_group_name       = "sv-staging-app-tg"
+  target_group_arn_suffix = "YYYYYYYYYYYYYYY"
 }
