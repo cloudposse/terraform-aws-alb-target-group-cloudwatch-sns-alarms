@@ -38,10 +38,10 @@ locals {
 resource "aws_sns_topic_policy" "default" {
   count  = "${local.enabled * local.create_sns_topic}"
   arn    = "${local.sns_topic_arn}"
-  policy = "${data.aws_iam_policy_document.sns_topic_policy.json}"
+  policy = "${data.aws_iam_policy_document.sns_topic.json}"
 }
 
-data "aws_iam_policy_document" "sns_topic_policy" {
+data "aws_iam_policy_document" "sns_topic" {
   count = "${local.enabled * local.create_sns_topic}"
 
   statement {
