@@ -24,10 +24,3 @@
 | target_response_time_alarm_description | The string to format and use as the target response time alarm description. | string | `Target Response Time average for %v over %v last %d minute(s) over %v period(s)` | no |
 | target_response_time_threshold | The maximum average target response time (in seconds) over a period. | string | `0.5` | no |
 
-## Outputs
-
-| Name | Description |
-|------|-------------|
-| sns_topic_arn | The ARN of the SNS topic |
-| sns_topic_name | The name of the SNS topic |
-

@@ -5,7 +5,7 @@
 #
 
 # Name of this project
-name: terraform-aws-alb-targetgroup-cloudwatch-sns-alarms
+name: terraform-aws-alb-target-group-cloudwatch-sns-alarms
 
 # Logo for this project
 #logo: docs/logo.png
@@ -14,16 +14,16 @@ name: terraform-aws-alb-targetgroup-cloudwatch-sns-alarms
 license: "APACHE2"
 
 # Canonical GitHub repo
-github_repo: cloudposse/terraform-aws-alb-targetgroup-cloudwatch-sns-alarms
+github_repo: cloudposse/terraform-aws-alb-target-group-cloudwatch-sns-alarms
 
 # Badges to display
 badges:
   - name: "Build Status"
-    image: "https://travis-ci.org/cloudposse/terraform-aws-alb-targetgroup-cloudwatch-sns-alarms.svg?branch=master"
-    url: "https://travis-ci.org/cloudposse/terraform-aws-alb-targetgroup-cloudwatch-sns-alarms"
+    image: "https://travis-ci.org/cloudposse/terraform-aws-alb-target-group-cloudwatch-sns-alarms.svg?branch=master"
+    url: "https://travis-ci.org/cloudposse/terraform-aws-alb-target-group-cloudwatch-sns-alarms"
   - name: "Latest Release"
-    image: "https://img.shields.io/github/release/cloudposse/terraform-aws-alb-targetgroup-cloudwatch-sns-alarms.svg"
-    url: "https://github.com/cloudposse/terraform-aws-alb-targetgroup-cloudwatch-sns-alarms/releases"
+    image: "https://img.shields.io/github/release/cloudposse/terraform-aws-alb-target-group-cloudwatch-sns-alarms.svg"
+    url: "https://github.com/cloudposse/terraform-aws-alb-target-group-cloudwatch-sns-alarms/releases"
   - name: "Slack Community"
     image: "https://slack.cloudposse.com/badge.svg"
     url: "https://slack.cloudposse.com"
@@ -69,7 +69,7 @@ description: |-
 usage: |-
   ```hcl
   module "alb_alarms" {
-    source                  = "git::https://github.com/cloudposse/terraform-aws-alb-targetgroup-cloudwatch-sns-alarms.git?ref=tags/0.1.0"
+    source                  = "git::https://github.com/cloudposse/terraform-aws-alb-target-group-cloudwatch-sns-alarms.git?ref=tags/0.1.0"
     name                    = "app"
     namespace               = "cp"
     stage                   = "prod"

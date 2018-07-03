@@ -2,7 +2,7 @@
 
 [![Cloud Posse](https://cloudposse.com/logo-300x69.png)](https://cloudposse.com)
 
-# terraform-aws-alb-targetgroup-cloudwatch-sns-alarms  [![Build Status](https://travis-ci.org/cloudposse/terraform-aws-alb-targetgroup-cloudwatch-sns-alarms.svg?branch=master)](https://travis-ci.org/cloudposse/terraform-aws-alb-targetgroup-cloudwatch-sns-alarms) [![Latest Release](https://img.shields.io/github/release/cloudposse/terraform-aws-alb-targetgroup-cloudwatch-sns-alarms.svg)](https://github.com/cloudposse/terraform-aws-alb-targetgroup-cloudwatch-sns-alarms/releases) [![Slack Community](https://slack.cloudposse.com/badge.svg)](https://slack.cloudposse.com)
+# terraform-aws-alb-target-group-cloudwatch-sns-alarms  [![Build Status](https://travis-ci.org/cloudposse/terraform-aws-alb-target-group-cloudwatch-sns-alarms.svg?branch=master)](https://travis-ci.org/cloudposse/terraform-aws-alb-target-group-cloudwatch-sns-alarms) [![Latest Release](https://img.shields.io/github/release/cloudposse/terraform-aws-alb-target-group-cloudwatch-sns-alarms.svg)](https://github.com/cloudposse/terraform-aws-alb-target-group-cloudwatch-sns-alarms/releases) [![Slack Community](https://slack.cloudposse.com/badge.svg)](https://slack.cloudposse.com)
 
 
 Terraform module for creating alarms for tracking important changes and occurrences from ALBs.
@@ -22,7 +22,7 @@ It's 100% Open Source and licensed under the [APACHE2](LICENSE).
 
 ```hcl
 module "alb_alarms" {
-  source                  = "git::https://github.com/cloudposse/terraform-aws-alb-targetgroup-cloudwatch-sns-alarms.git?ref=tags/0.1.0"
+  source                  = "git::https://github.com/cloudposse/terraform-aws-alb-target-group-cloudwatch-sns-alarms.git?ref=tags/0.1.0"
   name                    = "app"
   namespace               = "cp"
   stage                   = "prod"
@@ -64,13 +64,6 @@ module "alb_alarms" {
 | target_response_time_alarm_description | The string to format and use as the target response time alarm description. | string | `Target Response Time average for %v over %v last %d minute(s) over %v period(s)` | no |
 | target_response_time_threshold | The maximum average target response time (in seconds) over a period. | string | `0.5` | no |
 
-## Outputs
-
-| Name | Description |
-|------|-------------|
-| sns_topic_arn | The ARN of the SNS topic |
-| sns_topic_name | The name of the SNS topic |
-
 
 
 
@@ -92,7 +85,7 @@ Check out these related projects.
 
 **Got a question?**
 
-File a GitHub [issue](https://github.com/cloudposse/terraform-aws-alb-targetgroup-cloudwatch-sns-alarms/issues), send us an [email][email] or join our [Slack Community][slack].
+File a GitHub [issue](https://github.com/cloudposse/terraform-aws-alb-target-group-cloudwatch-sns-alarms/issues), send us an [email][email] or join our [Slack Community][slack].
 
 ## Commerical Support
 
@@ -116,7 +109,7 @@ Get access to our [Open Source Community Forum][slack] on Slack. It's **FREE** t
 
 ### Bug Reports & Feature Requests
 
-Please use the [issue tracker](https://github.com/cloudposse/terraform-aws-alb-targetgroup-cloudwatch-sns-alarms/issues) to report any bugs or file feature requests.
+Please use the [issue tracker](https://github.com/cloudposse/terraform-aws-alb-target-group-cloudwatch-sns-alarms/issues) to report any bugs or file feature requests.
 
 ### Developing
 
