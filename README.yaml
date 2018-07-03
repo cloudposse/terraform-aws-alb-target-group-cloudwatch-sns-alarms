@@ -5,7 +5,7 @@
 #
 
 # Name of this project
-name: terraform-aws-alb-targetgroup-cloudwatch-sns-alarms
+name: terraform-aws-alb-target-group-cloudwatch-sns-alarms
 
 # Logo for this project
 #logo: docs/logo.png
@@ -14,21 +14,33 @@ name: terraform-aws-alb-targetgroup-cloudwatch-sns-alarms
 license: "APACHE2"
 
 # Canonical GitHub repo
-github_repo: cloudposse/terraform-aws-alb-targetgroup-cloudwatch-sns-alarms
+github_repo: cloudposse/terraform-aws-alb-target-group-cloudwatch-sns-alarms
 
 # Badges to display
 badges:
   - name: "Build Status"
-    image: "https://travis-ci.org/cloudposse/terraform-aws-alb-targetgroup-cloudwatch-sns-alarms.svg?branch=master"
-    url: "https://travis-ci.org/cloudposse/terraform-aws-alb-targetgroup-cloudwatch-sns-alarms"
+    image: "https://travis-ci.org/cloudposse/terraform-aws-alb-target-group-cloudwatch-sns-alarms.svg?branch=master"
+    url: "https://travis-ci.org/cloudposse/terraform-aws-alb-target-group-cloudwatch-sns-alarms"
   - name: "Latest Release"
-    image: "https://img.shields.io/github/release/cloudposse/terraform-aws-alb-targetgroup-cloudwatch-sns-alarms.svg"
-    url: "https://github.com/cloudposse/terraform-aws-alb-targetgroup-cloudwatch-sns-alarms/releases"
+    image: "https://img.shields.io/github/release/cloudposse/terraform-aws-alb-target-group-cloudwatch-sns-alarms.svg"
+    url: "https://github.com/cloudposse/terraform-aws-alb-target-group-cloudwatch-sns-alarms/releases"
   - name: "Slack Community"
     image: "https://slack.cloudposse.com/badge.svg"
     url: "https://slack.cloudposse.com"
 
 related:
+  - name: "terraform-aws-alb"
+    description: "Terraform module to provision a standard ALB for HTTP/HTTP traffic"
+    url: "https://github.com/cloudposse/terraform-aws-alb"
+
+  - name: "terraform-aws-alb-ingress"
+    description: "Terraform module to provision an HTTP style ingress rule based on hostname and path for an ALB"
+    url: "https://github.com/cloudposse/terraform-aws-alb-ingress"
+
+  - name: "terraform-aws-lb-s3-bucket"
+    description: "Terraform module to provision an S3 bucket with built in IAM policy to allow AWS Load Balancers to ship access logs."
+    url: "https://github.com/cloudposse/terraform-aws-lb-s3-bucket"
+
   - name: "terraform-aws-cloudwatch-logs"
     description: "Terraform Module to Provide a CloudWatch Logs Endpoint"
     url: "https://github.com/cloudposse/terraform-aws-cloudwatch-logs"
@@ -69,7 +81,7 @@ description: |-
 usage: |-
   ```hcl
   module "alb_alarms" {
-    source                  = "git::https://github.com/cloudposse/terraform-aws-alb-targetgroup-cloudwatch-sns-alarms.git?ref=tags/0.1.0"
+    source                  = "git::https://github.com/cloudposse/terraform-aws-alb-target-group-cloudwatch-sns-alarms.git?ref=tags/0.1.0"
     name                    = "app"
     namespace               = "cp"
     stage                   = "prod"
@@ -94,14 +106,8 @@ include:
 # Contributors to this project
 contributors:
   - name: "Erik Osterman"
-    homepage: "https://github.com/osterman"
-    avatar: "http://s.gravatar.com/avatar/88c480d4f73b813904e00a5695a454cb?s=144"
     github: "osterman"
   - name: "Jamie Nelson"
-    homepage: "https://github.com/Jamie-BitFlight"
-    avatar: "https://avatars0.githubusercontent.com/u/25075504?s=144&u=ac7e53bda3706cb9d51907808574b6d342703b3e&v=4"
     github: "Jamie-BitFlight"
   - name: "Sarkis Varozian"
-    homepage: "https://github.com/sarkis"
-    avatar: "https://avatars3.githubusercontent.com/u/42673?s=144&v=4"
     github: "sarkis"
