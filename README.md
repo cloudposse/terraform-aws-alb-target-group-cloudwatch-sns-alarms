@@ -43,19 +43,17 @@ module "alb_alarms" {
 
 | Name | Description | Type | Default | Required |
 |------|-------------|:----:|:-----:|:-----:|
-| additional_notify_arns | Optional list of additional ARNs to notify on alarm and ok actions. | list | `<list>` | no |
 | alb_arn_suffix | The ARN suffix of ALB. | string | - | yes |
 | alb_name | The name of ALB to monitor. | string | - | yes |
 | attributes | List of attributes to add to label. | list | `<list>` | no |
-| create_sns_topic | Determines if a new sns topic will be generated. If set to false, the existing sns_topic_name variable must be set. | string | `true` | no |
 | delimiter | The delimiter to be used in labels. | string | `-` | no |
 | enabled | Whether to create all resources. | string | `true` | no |
 | evaluation_periods | Number of periods to evaluate for the alarm. | string | `1` | no |
 | httpcode_alarm_description | The string to format and use as the httpcode alarm description. | string | `HTTPCode %v count for %v over %v last %d minute(s) over %v period(s)` | no |
 | name | Name (unique identifier for app or service) | string | - | yes |
 | namespace | Namespace (e.g. `cp` or `cloudposse`) | string | - | yes |
+| notify_arns | A list of ARNs (i.e. SNS Topic ARN) to notify on alarm and ok actions. | list | - | yes |
 | period | Duration in seconds to evaluate for the alarm. | string | `300` | no |
-| sns_topic_name | Name of existing SNS topic to use for alarm and ok actions, instead of generating a new one. | string | `` | no |
 | stage | Stage (e.g. `prod`, `dev`, `staging`) | string | - | yes |
 | tags | Map of key-value pairs to use for tags. | map | `<map>` | no |
 | target_3xx_count_threshold | The maximum count of 3XX requests over a period. | string | `25` | no |
@@ -196,10 +194,10 @@ Check out [our other projects][github], [apply for a job][jobs], or [hire us][hi
 |---|---|---|
 
   [osterman_homepage]: https://github.com/osterman
-  [osterman_avatar]: http://s.gravatar.com/avatar/88c480d4f73b813904e00a5695a454cb?s=144
+  [osterman_avatar]: https://github.com/osterman.png?size=150
   [Jamie-BitFlight_homepage]: https://github.com/Jamie-BitFlight
-  [Jamie-BitFlight_avatar]: https://avatars0.githubusercontent.com/u/25075504?s=144&u=ac7e53bda3706cb9d51907808574b6d342703b3e&v=4
+  [Jamie-BitFlight_avatar]: https://github.com/Jamie-BitFlight.png?size=150
   [sarkis_homepage]: https://github.com/sarkis
-  [sarkis_avatar]: https://avatars3.githubusercontent.com/u/42673?s=144&v=4
+  [sarkis_avatar]: https://github.com/sarkis.png?size=150
 
 
