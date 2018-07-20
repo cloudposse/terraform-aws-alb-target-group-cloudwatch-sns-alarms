@@ -12,8 +12,8 @@ locals {
   TargetResponseTimeAlarmEnabled = "${var.target_response_time_threshold < 0 ? 0 : 1 * local.enabled}"
 
   dimensions_map = {
-    "TargetGroup"  = "${join("/", list("targetgroup", var.target_group_name, var.target_group_arn_suffix))}"
-    "LoadBalancer" = "${join("/", list("app", var.alb_name, var.alb_arn_suffix))}"
+    "TargetGroup"  = "${var.target_group_arn_suffix}"
+    "LoadBalancer" = "${var.alb_arn_suffix}"
   }
 }
 
