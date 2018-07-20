@@ -39,7 +39,26 @@ variable "enabled" {
 
 variable "notify_arns" {
   type        = "list"
-  description = "A list of ARNs (i.e. SNS Topic ARN) to notify on alarm and ok actions."
+  description = "A list of ARNs (i.e. SNS Topic ARN) to execute when this alarm transitions into ANY state from any other state. May be overridden by the value of a more specific {alarm,ok,insufficient_data}_actions variable. "
+  default     = []
+}
+
+variable "alarm_actions" {
+  type        = "list"
+  description = "A list of ARNs (i.e. SNS Topic ARN) to execute when this alarm transitions into an ALARM state from any other state.  If set, this list takes precedence over notify_arns."
+  default     = []
+}
+
+variable "ok_actions" {
+  type        = "list"
+  description = "A list of ARNs (i.e. SNS Topic ARN) to execute when this alarm transitions into an OK state from any other state. If set, this list takes precedence over notify_arns."
+  default     = []
+}
+
+variable "insufficient_data_actions" {
+  type        = "list"
+  description = "A list of ARNs (i.e. SNS Topic ARN) to execute when this alarm transitions into an INSUFFICIENT_DATA state from any other state. If set, this list takes precedence over notify_arns."
+  default     = []
 }
 
 variable "alb_name" {
@@ -108,4 +127,10 @@ variable "target_response_time_alarm_description" {
   type        = "string"
   description = "The string to format and use as the target response time alarm description."
   default     = "Target Response Time average for %v over %v last %d minute(s) over %v period(s)"
+}
+
+variable "treat_missing_data" {
+  type        = "string"
+  description = "Sets how alarms handle missing data points. Values supported: missing, ignore, breaching and notBreaching."
+  default     = "missing"
 }
