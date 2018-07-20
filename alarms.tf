@@ -6,10 +6,10 @@ locals {
     TargetResponseTimeThreshold = "${max(var.target_response_time_threshold, 0)}"
   }
 
-  Target3XXAlarmEnabled          = "${var.target_3xx_count_threshold < 0     ? 0 : 1 * local.enabled}"
-  Target4XXAlarmEnabled          = "${var.target_4xx_count_threshold < 0     ? 0 : 1 * local.enabled}"
-  Target5XXAlarmEnabled          = "${var.target_5xx_count_threshold < 0     ? 0 : 1 * local.enabled}"
-  TargetResponseTimeAlarmEnabled = "${var.target_response_time_threshold < 0 ? 0 : 1 * local.enabled}"
+  Target3XXAlarmEnabled          = "${floor(var.target_3xx_count_threshold) < 0     ? 0 : 1 * local.enabled}"
+  Target4XXAlarmEnabled          = "${floor(var.target_4xx_count_threshold) < 0     ? 0 : 1 * local.enabled}"
+  Target5XXAlarmEnabled          = "${floor(var.target_5xx_count_threshold) < 0     ? 0 : 1 * local.enabled}"
+  TargetResponseTimeAlarmEnabled = "${floor(var.target_response_time_threshold) < 0 ? 0 : 1 * local.enabled}"
 
   dimensions_map = {
     "TargetGroup"  = "${join("/", list("targetgroup", var.target_group_name, var.target_group_arn_suffix))}"
