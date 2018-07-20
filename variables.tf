@@ -76,19 +76,19 @@ variable "period" {
 
 variable "target_3xx_count_threshold" {
   type        = "string"
-  description = "The maximum count of 3XX requests over a period."
+  description = "The maximum count of 3XX requests over a period. A negative value will disable the alert."
   default     = "25"
 }
 
 variable "target_4xx_count_threshold" {
   type        = "string"
-  description = "The maximum count of 4XX requests over a period."
+  description = "The maximum count of 4XX requests over a period. A negative value will disable the alert."
   default     = "25"
 }
 
 variable "target_5xx_count_threshold" {
   type        = "string"
-  description = "The maximum count of 5XX requests over a period."
+  description = "The maximum count of 5XX requests over a period. A negative value will disable the alert."
   default     = "25"
 }
 
@@ -100,7 +100,7 @@ variable "httpcode_alarm_description" {
 
 variable "target_response_time_threshold" {
   type        = "string"
-  description = "The maximum average target response time (in seconds) over a period."
+  description = "The maximum average target response time (in seconds) over a period. A negative value will disable the alert."
   default     = "0.5"
 }
 

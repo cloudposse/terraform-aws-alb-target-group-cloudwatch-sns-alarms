@@ -6,6 +6,11 @@ locals {
     TargetResponseTimeThreshold = "${max(var.target_response_time_threshold, 0)}"
   }
 
+  Target3XXAlarmEnabled          = "${var.target_3xx_count_threshold < 0     ? 0 : 1 * local.enabled}"
+  Target4XXAlarmEnabled          = "${var.target_4xx_count_threshold < 0     ? 0 : 1 * local.enabled}"
+  Target5XXAlarmEnabled          = "${var.target_5xx_count_threshold < 0     ? 0 : 1 * local.enabled}"
+  TargetResponseTimeAlarmEnabled = "${var.target_response_time_threshold < 0 ? 0 : 1 * local.enabled}"
+
   dimensions_map = {
     "TargetGroup"  = "${join("/", list("targetgroup", var.target_group_name, var.target_group_arn_suffix))}"
     "LoadBalancer" = "${join("/", list("app", var.alb_name, var.alb_arn_suffix))}"
@@ -21,7 +26,7 @@ module "httpcode_alarm_label" {
 }
 
 resource "aws_cloudwatch_metric_alarm" "httpcode_target_3xx_count" {
-  count               = "${local.enabled}"
+  count               = "${local.Target3XXAlarmEnabled}"
   alarm_name          = "${format(module.httpcode_alarm_label.id, "3XX")}"
   comparison_operator = "GreaterThanThreshold"
   evaluation_periods  = "${var.evaluation_periods}"
@@ -38,7 +43,7 @@ resource "aws_cloudwatch_metric_alarm" "httpcode_target_3xx_count" {
 }
 
 resource "aws_cloudwatch_metric_alarm" "httpcode_target_4xx_count" {
-  count               = "${local.enabled}"
+  count               = "${local.Target4XXAlarmEnabled}"
   alarm_name          = "${format(module.httpcode_alarm_label.id, "4XX")}"
   comparison_operator = "GreaterThanThreshold"
   evaluation_periods  = "${var.evaluation_periods}"
@@ -55,7 +60,7 @@ resource "aws_cloudwatch_metric_alarm" "httpcode_target_4xx_count" {
 }
 
 resource "aws_cloudwatch_metric_alarm" "httpcode_target_5xx_count" {
-  count               = "${local.enabled}"
+  count               = "${local.Target5XXAlarmEnabled}"
   alarm_name          = "${format(module.httpcode_alarm_label.id, "5XX")}"
   comparison_operator = "GreaterThanThreshold"
   evaluation_periods  = "${var.evaluation_periods}"
@@ -80,7 +85,7 @@ module "target_response_time_alarm_label" {
 }
 
 resource "aws_cloudwatch_metric_alarm" "target_response_time_average" {
-  count               = "${local.enabled}"
+  count               = "${local.TargetResponseTimeAlarmEnabled}"
   alarm_name          = "${format(module.target_response_time_alarm_label.id)}"
   comparison_operator = "GreaterThanThreshold"
   evaluation_periods  = "${var.evaluation_periods}"
