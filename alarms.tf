@@ -1,15 +1,15 @@
 locals {
   thresholds = {
-    Target3XXCountThreshold     = "${max(var.target_3xx_count_threshold, 0)}"
-    Target4XXCountThreshold     = "${max(var.target_4xx_count_threshold, 0)}"
-    Target5XXCountThreshold     = "${max(var.target_5xx_count_threshold, 0)}"
-    TargetResponseTimeThreshold = "${max(var.target_response_time_threshold, 0)}"
+    target_3xx_count     = "${max(var.target_3xx_count_threshold, 0)}"
+    target_4xx_count     = "${max(var.target_4xx_count_threshold, 0)}"
+    target_5xx_count     = "${max(var.target_5xx_count_threshold, 0)}"
+    target_response_time = "${max(var.target_response_time_threshold, 0)}"
   }
 
-  Target3XXAlarmEnabled          = "${var.target_3xx_count_threshold < 0     ? 0 : 1 * local.enabled}"
-  Target4XXAlarmEnabled          = "${var.target_4xx_count_threshold < 0     ? 0 : 1 * local.enabled}"
-  Target5XXAlarmEnabled          = "${var.target_5xx_count_threshold < 0     ? 0 : 1 * local.enabled}"
-  TargetResponseTimeAlarmEnabled = "${var.target_response_time_threshold < 0 ? 0 : 1 * local.enabled}"
+  target_3xx_alarm_enabled           = "${floor(var.target_3xx_count_threshold) < 0     ? 0 : 1 * local.enabled}"
+  target_4xx_alarm_enabled           = "${floor(var.target_4xx_count_threshold) < 0     ? 0 : 1 * local.enabled}"
+  target_5xx_alarm_enabled           = "${floor(var.target_5xx_count_threshold) < 0     ? 0 : 1 * local.enabled}"
+  target_response_time_alarm_enabled = "${floor(var.target_response_time_threshold) < 0 ? 0 : 1 * local.enabled}"
 
   dimensions_map = {
     "TargetGroup"  = "${var.target_group_arn_suffix}"
@@ -26,7 +26,7 @@ module "httpcode_alarm_label" {
 }
 
 resource "aws_cloudwatch_metric_alarm" "httpcode_target_3xx_count" {
-  count               = "${local.Target3XXAlarmEnabled}"
+  count               = "${local.target_3xx_alarm_enabled}"
   alarm_name          = "${format(module.httpcode_alarm_label.id, "3XX")}"
   comparison_operator = "GreaterThanThreshold"
   evaluation_periods  = "${var.evaluation_periods}"
@@ -34,8 +34,8 @@ resource "aws_cloudwatch_metric_alarm" "httpcode_target_3xx_count" {
   namespace           = "AWS/ApplicationELB"
   period              = "${var.period}"
   statistic           = "Sum"
-  threshold           = "${local.thresholds["Target3XXCountThreshold"]}"
-  alarm_description   = "${format(var.httpcode_alarm_description, "3XX", module.default_label.id, local.thresholds["Target3XXCountThreshold"], var.period/60, var.evaluation_periods)}"
+  threshold           = "${local.thresholds["target_3xx_count"]}"
+  alarm_description   = "${format(var.httpcode_alarm_description, "3XX", module.default_label.id, local.thresholds["target_3xx_count"], var.period/60, var.evaluation_periods)}"
   alarm_actions       = ["${var.notify_arns}"]
   ok_actions          = ["${var.notify_arns}"]
 
@@ -43,7 +43,7 @@ resource "aws_cloudwatch_metric_alarm" "httpcode_target_3xx_count" {
 }
 
 resource "aws_cloudwatch_metric_alarm" "httpcode_target_4xx_count" {
-  count               = "${local.Target4XXAlarmEnabled}"
+  count               = "${local.target_4xx_alarm_enabled}"
   alarm_name          = "${format(module.httpcode_alarm_label.id, "4XX")}"
   comparison_operator = "GreaterThanThreshold"
   evaluation_periods  = "${var.evaluation_periods}"
@@ -51,8 +51,8 @@ resource "aws_cloudwatch_metric_alarm" "httpcode_target_4xx_count" {
   namespace           = "AWS/ApplicationELB"
   period              = "${var.period}"
   statistic           = "Sum"
-  threshold           = "${local.thresholds["Target4XXCountThreshold"]}"
-  alarm_description   = "${format(var.httpcode_alarm_description, "4XX", module.default_label.id, local.thresholds["Target4XXCountThreshold"], var.period/60, var.evaluation_periods)}"
+  threshold           = "${local.thresholds["target_4xx_count"]}"
+  alarm_description   = "${format(var.httpcode_alarm_description, "4XX", module.default_label.id, local.thresholds["target_4xx_count"], var.period/60, var.evaluation_periods)}"
   alarm_actions       = ["${var.notify_arns}"]
   ok_actions          = ["${var.notify_arns}"]
 
@@ -60,7 +60,7 @@ resource "aws_cloudwatch_metric_alarm" "httpcode_target_4xx_count" {
 }
 
 resource "aws_cloudwatch_metric_alarm" "httpcode_target_5xx_count" {
-  count               = "${local.Target5XXAlarmEnabled}"
+  count               = "${local.target_5xx_alarm_enabled}"
   alarm_name          = "${format(module.httpcode_alarm_label.id, "5XX")}"
   comparison_operator = "GreaterThanThreshold"
   evaluation_periods  = "${var.evaluation_periods}"
@@ -68,8 +68,8 @@ resource "aws_cloudwatch_metric_alarm" "httpcode_target_5xx_count" {
   namespace           = "AWS/ApplicationELB"
   period              = "${var.period}"
   statistic           = "Sum"
-  threshold           = "${local.thresholds["Target5XXCountThreshold"]}"
-  alarm_description   = "${format(var.httpcode_alarm_description, "5XX", module.default_label.id, local.thresholds["Target5XXCountThreshold"], var.period/60, var.evaluation_periods)}"
+  threshold           = "${local.thresholds["target_5xx_count"]}"
+  alarm_description   = "${format(var.httpcode_alarm_description, "5XX", module.default_label.id, local.thresholds["target_5xx_count"], var.period/60, var.evaluation_periods)}"
   alarm_actions       = ["${var.notify_arns}"]
   ok_actions          = ["${var.notify_arns}"]
 
@@ -85,7 +85,7 @@ module "target_response_time_alarm_label" {
 }
 
 resource "aws_cloudwatch_metric_alarm" "target_response_time_average" {
-  count               = "${local.TargetResponseTimeAlarmEnabled}"
+  count               = "${local.target_response_time_alarm_enabled}"
   alarm_name          = "${format(module.target_response_time_alarm_label.id)}"
   comparison_operator = "GreaterThanThreshold"
   evaluation_periods  = "${var.evaluation_periods}"
@@ -93,8 +93,8 @@ resource "aws_cloudwatch_metric_alarm" "target_response_time_average" {
   namespace           = "AWS/ApplicationELB"
   period              = "${var.period}"
   statistic           = "Average"
-  threshold           = "${local.thresholds["TargetResponseTimeThreshold"]}"
-  alarm_description   = "${format(var.target_response_time_alarm_description, module.default_label.id, local.thresholds["TargetResponseTimeThreshold"], var.period/60, var.evaluation_periods)}"
+  threshold           = "${local.thresholds["target_response_time"]}"
+  alarm_description   = "${format(var.target_response_time_alarm_description, module.default_label.id, local.thresholds["target_response_time"], var.period/60, var.evaluation_periods)}"
   alarm_actions       = ["${var.notify_arns}"]
   ok_actions          = ["${var.notify_arns}"]
 
