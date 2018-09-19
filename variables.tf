@@ -111,6 +111,12 @@ variable "target_5xx_count_threshold" {
   default     = "25"
 }
 
+variable "elb_5xx_count_threshold" {
+  type        = "string"
+  description = "The maximum count of ELB 5XX requests over a period. A negative value will disable the alert."
+  default     = "25"
+}
+
 variable "httpcode_alarm_description" {
   type        = "string"
   description = "The string to format and use as the httpcode alarm description."
