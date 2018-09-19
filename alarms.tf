@@ -8,12 +8,14 @@ locals {
     target_3xx_count     = "${max(var.target_3xx_count_threshold, 0)}"
     target_4xx_count     = "${max(var.target_4xx_count_threshold, 0)}"
     target_5xx_count     = "${max(var.target_5xx_count_threshold, 0)}"
+    elb_5xx_count        = "${max(var.elb_5xx_count_threshold, 0)}"
     target_response_time = "${max(var.target_response_time_threshold, 0)}"
   }
 
   target_3xx_alarm_enabled           = "${floor(var.target_3xx_count_threshold) < 0     ? 0 : 1 * local.enabled}"
   target_4xx_alarm_enabled           = "${floor(var.target_4xx_count_threshold) < 0     ? 0 : 1 * local.enabled}"
   target_5xx_alarm_enabled           = "${floor(var.target_5xx_count_threshold) < 0     ? 0 : 1 * local.enabled}"
+  elb_5xx_alarm_enabled              = "${floor(var.elb_5xx_count_threshold) < 0        ? 0 : 1 * local.enabled}"
   target_response_time_alarm_enabled = "${floor(var.target_response_time_threshold) < 0 ? 0 : 1 * local.enabled}"
 
   dimensions_map = {
@@ -80,6 +82,25 @@ resource "aws_cloudwatch_metric_alarm" "httpcode_target_5xx_count" {
   threshold                 = "${local.thresholds["target_5xx_count"]}"
   treat_missing_data        = "${var.treat_missing_data}"
   alarm_description         = "${format(var.httpcode_alarm_description, "5XX", module.default_label.id, local.thresholds["target_5xx_count"], var.period/60, var.evaluation_periods)}"
+  alarm_actions             = ["${local.alarm_actions}"]
+  ok_actions                = ["${local.ok_actions}"]
+  insufficient_data_actions = ["${local.insufficient_data_actions}"]
+
+  dimensions = "${local.dimensions_map}"
+}
+
+resource "aws_cloudwatch_metric_alarm" "httpcode_elb_5xx_count" {
+  count                     = "${local.elb_5xx_alarm_enabled}"
+  alarm_name                = "${format(module.httpcode_alarm_label.id, "ELB-5XX")}"
+  comparison_operator       = "GreaterThanThreshold"
+  evaluation_periods        = "${var.evaluation_periods}"
+  metric_name               = "HTTPCode_ELB_5XX_Count"
+  namespace                 = "AWS/ApplicationELB"
+  period                    = "${var.period}"
+  statistic                 = "Sum"
+  threshold                 = "${local.thresholds["elb_5xx_count"]}"
+  treat_missing_data        = "${var.treat_missing_data}"
+  alarm_description         = "${format(var.httpcode_alarm_description, "ELB-5XX", module.default_label.id, local.thresholds["elb_5xx_count"], var.period/60, var.evaluation_periods)}"
   alarm_actions             = ["${local.alarm_actions}"]
   ok_actions                = ["${local.ok_actions}"]
   insufficient_data_actions = ["${local.insufficient_data_actions}"]
