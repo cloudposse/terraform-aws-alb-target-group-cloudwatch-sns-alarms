@@ -30,7 +30,7 @@ It's 100% Open Source and licensed under the [APACHE2](LICENSE).
 
 ```hcl
 module "alb_alarms" {
-  source                  = "git::https://github.com/cloudposse/terraform-aws-alb-target-group-cloudwatch-sns-alarms.git?ref=tags/0.1.0"
+  source                  = "git::https://github.com/cloudposse/terraform-aws-alb-target-group-cloudwatch-sns-alarms.git?ref=tags/0.5.1"
   name                    = "app"
   namespace               = "cp"
   stage                   = "prod"
