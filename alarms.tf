@@ -18,8 +18,12 @@ locals {
   elb_5xx_alarm_enabled              = "${floor(var.elb_5xx_count_threshold) < 0        ? 0 : 1 * local.enabled}"
   target_response_time_alarm_enabled = "${floor(var.target_response_time_threshold) < 0 ? 0 : 1 * local.enabled}"
 
-  dimensions_map = {
+  target_group_dimensions_map = {
     "TargetGroup"  = "${var.target_group_arn_suffix}"
+    "LoadBalancer" = "${var.alb_arn_suffix}"
+  }
+
+  load_balancer_dimensions_map = {
     "LoadBalancer" = "${var.alb_arn_suffix}"
   }
 }
@@ -48,7 +52,7 @@ resource "aws_cloudwatch_metric_alarm" "httpcode_target_3xx_count" {
   ok_actions                = ["${local.ok_actions}"]
   insufficient_data_actions = ["${local.insufficient_data_actions}"]
 
-  dimensions = "${local.dimensions_map}"
+  dimensions = "${local.target_group_dimensions_map}"
 }
 
 resource "aws_cloudwatch_metric_alarm" "httpcode_target_4xx_count" {
@@ -67,7 +71,7 @@ resource "aws_cloudwatch_metric_alarm" "httpcode_target_4xx_count" {
   ok_actions                = ["${local.ok_actions}"]
   insufficient_data_actions = ["${local.insufficient_data_actions}"]
 
-  dimensions = "${local.dimensions_map}"
+  dimensions = "${local.target_group_dimensions_map}"
 }
 
 resource "aws_cloudwatch_metric_alarm" "httpcode_target_5xx_count" {
@@ -86,7 +90,7 @@ resource "aws_cloudwatch_metric_alarm" "httpcode_target_5xx_count" {
   ok_actions                = ["${local.ok_actions}"]
   insufficient_data_actions = ["${local.insufficient_data_actions}"]
 
-  dimensions = "${local.dimensions_map}"
+  dimensions = "${local.target_group_dimensions_map}"
 }
 
 resource "aws_cloudwatch_metric_alarm" "httpcode_elb_5xx_count" {
@@ -105,7 +109,7 @@ resource "aws_cloudwatch_metric_alarm" "httpcode_elb_5xx_count" {
   ok_actions                = ["${local.ok_actions}"]
   insufficient_data_actions = ["${local.insufficient_data_actions}"]
 
-  dimensions = "${local.dimensions_map}"
+  dimensions = "${local.load_balancer_dimensions_map}"
 }
 
 module "target_response_time_alarm_label" {
@@ -132,5 +136,5 @@ resource "aws_cloudwatch_metric_alarm" "target_response_time_average" {
   ok_actions                = ["${local.ok_actions}"]
   insufficient_data_actions = ["${local.insufficient_data_actions}"]
 
-  dimensions = "${local.dimensions_map}"
+  dimensions = "${local.target_group_dimensions_map}"
 }
