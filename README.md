@@ -12,7 +12,7 @@ Terraform module for creating alarms for tracking important changes and occurren
 
 ---
 
-This project is part of our comprehensive ["SweetOps"](https://docs.cloudposse.com) approach towards DevOps. 
+This project is part of our comprehensive ["SweetOps"](https://docs.cloudposse.com) approach towards DevOps.
 
 
 It's 100% Open Source and licensed under the [APACHE2](LICENSE).
@@ -33,7 +33,7 @@ module "alb_alarms" {
   source                  = "git::https://github.com/cloudposse/terraform-aws-alb-target-group-cloudwatch-sns-alarms.git?ref=master"
   name                    = "app"
   namespace               = "cp"
-  stage                   = "prod"
+  stack                   = "prod-us-east-1"
   alb_name                = "cp-prod-app-alb"
   alb_arn_suffix          = "XXXXXXXXX"
   target_group_name       = "cp-prod-app-tg"
@@ -65,7 +65,7 @@ module "alb_alarms" {
 | notify_arns | A list of ARNs (i.e. SNS Topic ARN) to execute when this alarm transitions into ANY state from any other state. May be overridden by the value of a more specific {alarm,ok,insufficient_data}_actions variable. | list | `<list>` | no |
 | ok_actions | A list of ARNs (i.e. SNS Topic ARN) to execute when this alarm transitions into an OK state from any other state. If set, this list takes precedence over notify_arns. | list | `<list>` | no |
 | period | Duration in seconds to evaluate for the alarm. | string | `300` | no |
-| stage | Stage (e.g. `prod`, `dev`, `staging`) | string | - | yes |
+| stack | Stack (e.g. `prod-us-east-1`, `dev-us-west-2`) | string | - | yes |
 | tags | Map of key-value pairs to use for tags. | map | `<map>` | no |
 | target_3xx_count_threshold | The maximum count of 3XX requests over a period. A negative value will disable the alert. | string | `25` | no |
 | target_4xx_count_threshold | The maximum count of 4XX requests over a period. A negative value will disable the alert. | string | `25` | no |
@@ -106,9 +106,9 @@ File a GitHub [issue](https://github.com/cloudposse/terraform-aws-alb-target-gro
 
 ## Commercial Support
 
-Work directly with our team of DevOps experts via email, slack, and video conferencing. 
+Work directly with our team of DevOps experts via email, slack, and video conferencing.
 
-We provide [*commercial support*][commercial_support] for all of our [Open Source][github] projects. As a *Dedicated Support* customer, you have access to our team of subject matter experts at a fraction of the cost of a full-time engineer. 
+We provide [*commercial support*][commercial_support] for all of our [Open Source][github] projects. As a *Dedicated Support* customer, you have access to our team of subject matter experts at a fraction of the cost of a full-time engineer.
 
 [![E-Mail](https://img.shields.io/badge/email-hello@cloudposse.com-blue.svg)](mailto:hello@cloudposse.com)
 
@@ -118,7 +118,7 @@ We provide [*commercial support*][commercial_support] for all of our [Open Sourc
 - **Bug Fixes.** We'll rapidly work to fix any bugs in our projects.
 - **Build New Terraform Modules.** We'll develop original modules to provision infrastructure.
 - **Cloud Architecture.** We'll assist with your cloud strategy and design.
-- **Implementation.** We'll provide hands-on support to implement our reference architectures. 
+- **Implementation.** We'll provide hands-on support to implement our reference architectures.
 
 
 ## Community Forum
@@ -152,9 +152,9 @@ Copyright © 2017-2018 [Cloud Posse, LLC](https://cloudposse.com)
 
 
 
-## License 
+## License
 
-[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0) 
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 See [LICENSE](LICENSE) for full details.
 
@@ -222,5 +222,3 @@ Check out [our other projects][github], [apply for a job][jobs], or [hire us][hi
   [Jamie-BitFlight_avatar]: https://github.com/Jamie-BitFlight.png?size=150
   [sarkis_homepage]: https://github.com/sarkis
   [sarkis_avatar]: https://github.com/sarkis.png?size=150
-
-

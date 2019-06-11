@@ -14,9 +14,9 @@ variable "delimiter" {
   default     = "-"
 }
 
-variable "stage" {
+variable "stack" {
   type        = "string"
-  description = "Stage (e.g. `prod`, `dev`, `staging`)"
+  description = "Stack (e.g. `prod-us-east-1`, `dev-us-west-2`)"
 }
 
 variable "attributes" {
@@ -91,12 +91,6 @@ variable "period" {
   type        = "string"
   description = "Duration in seconds to evaluate for the alarm."
   default     = "300"
-}
-
-variable "target_3xx_count_threshold" {
-  type        = "string"
-  description = "The maximum count of 3XX requests over a period. A negative value will disable the alert."
-  default     = "25"
 }
 
 variable "target_4xx_count_threshold" {

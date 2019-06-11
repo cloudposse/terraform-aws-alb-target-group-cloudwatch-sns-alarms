@@ -17,7 +17,7 @@
 | notify_arns | A list of ARNs (i.e. SNS Topic ARN) to execute when this alarm transitions into ANY state from any other state. May be overridden by the value of a more specific {alarm,ok,insufficient_data}_actions variable. | list | `<list>` | no |
 | ok_actions | A list of ARNs (i.e. SNS Topic ARN) to execute when this alarm transitions into an OK state from any other state. If set, this list takes precedence over notify_arns. | list | `<list>` | no |
 | period | Duration in seconds to evaluate for the alarm. | string | `300` | no |
-| stage | Stage (e.g. `prod`, `dev`, `staging`) | string | - | yes |
+| stack | Stack (e.g. `prod-us-east-1`, `dev-us-west-2`) | string | - | yes |
 | tags | Map of key-value pairs to use for tags. | map | `<map>` | no |
 | target_3xx_count_threshold | The maximum count of 3XX requests over a period. A negative value will disable the alert. | string | `25` | no |
 | target_4xx_count_threshold | The maximum count of 4XX requests over a period. A negative value will disable the alert. | string | `25` | no |
@@ -28,4 +28,3 @@
 | target_response_time_alarm_description | The string to format and use as the target response time alarm description. | string | `Target Response Time average for %v over %v last %d minute(s) over %v period(s)` | no |
 | target_response_time_threshold | The maximum average target response time (in seconds) over a period. A negative value will disable the alert. | string | `0.5` | no |
 | treat_missing_data | Sets how alarms handle missing data points. Values supported: missing, ignore, breaching and notBreaching. | string | `missing` | no |
-
