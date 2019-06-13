@@ -123,7 +123,7 @@ resource "aws_cloudwatch_metric_alarm" "httpcode_target_5xx_warn_count" {
 
 resource "aws_cloudwatch_metric_alarm" "healthy_host_target_count" {
   count                     = "${local.target_healthy_host_alarm_enabled}"
-  alarm_name                = "${format(module.httpcode_alarm_label.id, "5XX")}"
+  alarm_name                = "${format(module.httpcode_alarm_label.id, "HealthyHost")}"
   comparison_operator       = "LessThanThreshold"
   evaluation_periods        = "${var.evaluation_periods}"
   metric_name               = "HealthyHostCount"
@@ -142,7 +142,7 @@ resource "aws_cloudwatch_metric_alarm" "healthy_host_target_count" {
 
 resource "aws_cloudwatch_metric_alarm" "healthy_host_target_warn_count" {
   count                     = "${local.target_healthy_host_alarm_warn_enabled}"
-  alarm_name                = "${format(module.httpcode_alarm_label.id, "5XX")}"
+  alarm_name                = "${format(module.httpcode_alarm_label.id, "HealthyHost")}"
   comparison_operator       = "LessThanThreshold"
   evaluation_periods        = "${var.evaluation_periods}"
   metric_name               = "HealthyHostCount"
