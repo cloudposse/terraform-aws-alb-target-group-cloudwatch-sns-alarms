@@ -67,7 +67,7 @@ resource "aws_cloudwatch_metric_alarm" "httpcode_target_4xx_count" {
 }
 
 resource "aws_cloudwatch_metric_alarm" "httpcode_target_4xx_count_warn" {
-  count                     = "${local.target_4xx_alarm_warn_enabled}"
+  count                     = "${local.target_4xx_warn_alarm_enabled}"
   alarm_name                = "${format(module.httpcode_alarm_label.id, "4XX")}"
   comparison_operator       = "GreaterThanThreshold"
   evaluation_periods        = "${var.evaluation_periods}"
