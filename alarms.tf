@@ -38,7 +38,7 @@ locals {
 }
 
 module "httpcode_alarm_label" {
-  source     = "git::https://github.com/cloudposse/terraform-terraform-label.git?ref=tags/0.1.3"
+  source     = "git::https://github.com/pricemethod/terraform-terraform-label.git?ref=master"
   name       = "${var.name}"
   namespace  = "${var.namespace}"
   stack      = "${var.stack}"
@@ -179,7 +179,7 @@ resource "aws_cloudwatch_metric_alarm" "httpcode_elb_5xx_count" {
 }
 
 module "target_response_time_alarm_label" {
-  source     = "git::https://github.com/cloudposse/terraform-terraform-label.git?ref=tags/0.1.3"
+  source     = "git::https://github.com/pricemethod/terraform-terraform-label.git?ref=master"
   name       = "${var.name}"
   namespace  = "${var.namespace}"
   stack      = "${var.stack}"
