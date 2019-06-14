@@ -22,7 +22,9 @@ locals {
 
   elb_5xx_alarm_enabled                   = "${floor(var.elb_5xx_count_threshold)                  <= 0     ? 0 : 1 * local.enabled}"
   target_4xx_alarm_enabled                = "${floor(var.target_4xx_count_threshold)               <= 0     ? 0 : 1 * local.enabled}"
+  target_4xx_warn_alarm_enabled           = "${floor(var.target_4xx_count_warn_threshold)          <= 0     ? 0 : 1 * local.enabled}"
   target_5xx_alarm_enabled                = "${floor(var.target_5xx_count_threshold)               <= 0     ? 0 : 1 * local.enabled}"
+  target_5xx_warn_alarm_enabled           = "${floor(var.target_5xx_count_warn_threshold)          <= 0     ? 0 : 1 * local.enabled}"
   target_healthy_host_alarm_enabled       = "${floor(var.target_healthy_host_count_threshold)      <= 0     ? 0 : 1 * local.enabled}"
   target_healthy_host_warn_alarm_enabled  = "${floor(var.target_healthy_host_count_warn_threshold) <= 0     ? 0 : 1 * local.enabled}"
   target_response_time_alarm_enabled      = "${floor(var.target_response_time_threshold)           <= 0     ? 0 : 1 * local.enabled}"
@@ -103,7 +105,7 @@ resource "aws_cloudwatch_metric_alarm" "httpcode_target_5xx_count" {
 }
 
 resource "aws_cloudwatch_metric_alarm" "httpcode_target_5xx_count_warn" {
-  count                     = "${local.target_5xx_alarm_warn_enabled}"
+  count                     = "${local.target_5xx_warn_alarm_enabled}"
   alarm_name                = "${format(module.httpcode_alarm_label.id, "5XX")}"
   comparison_operator       = "GreaterThanThreshold"
   evaluation_periods        = "${var.evaluation_periods}"
@@ -141,7 +143,7 @@ resource "aws_cloudwatch_metric_alarm" "healthy_host_target_count" {
 }
 
 resource "aws_cloudwatch_metric_alarm" "healthy_host_target_count_warn" {
-  count                     = "${local.target_healthy_host_alarm_warn_enabled}"
+  count                     = "${local.target_healthy_host_warn_alarm_enabled}"
   alarm_name                = "${format(module.httpcode_alarm_label.id, "HealthyHost")}"
   comparison_operator       = "LessThanThreshold"
   evaluation_periods        = "${var.evaluation_periods}"
