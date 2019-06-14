@@ -15,9 +15,9 @@ variable "delimiter" {
   default     = "-"
 }
 
-variable "stack" {
+variable "stage" {
   type        = "string"
-  description = "Stack (e.g. `prod-us-east-1`, `dev-us-west-2`)"
+  description = "Stage (e.g. `prod`, `dev`)"
 }
 
 variable "attributes" {
