@@ -20,12 +20,12 @@ locals {
     target_response_warn_time      = "${max(var.target_response_warn_time_threshold, 0)}"
   }
 
-  elb_5xx_alarm_enabled              = "${floor(var.elb_5xx_count_threshold)                  <= 0     ? 0 : 1 * local.enabled}"
-  target_4xx_alarm_enabled           = "${floor(var.target_4xx_count_threshold)               <= 0     ? 0 : 1 * local.enabled}"
-  target_5xx_alarm_enabled           = "${floor(var.target_5xx_count_threshold)               <= 0     ? 0 : 1 * local.enabled}"
-  target_healthy_host_alarm_enabled  = "${floor(var.target_healthy_host_count_threshold)      <= 0     ? 0 : 1 * local.enabled}"
-  target_healthy_host_alarm_enabled  = "${floor(var.target_healthy_host_warn_count_threshold) <= 0     ? 0 : 1 * local.enabled}"
-  target_response_time_alarm_enabled = "${floor(var.target_response_time_threshold)           <= 0 ? 0 : 1 * local.enabled}"
+  elb_5xx_alarm_enabled                   = "${floor(var.elb_5xx_count_threshold)                  <= 0     ? 0 : 1 * local.enabled}"
+  target_4xx_alarm_enabled                = "${floor(var.target_4xx_count_threshold)               <= 0     ? 0 : 1 * local.enabled}"
+  target_5xx_alarm_enabled                = "${floor(var.target_5xx_count_threshold)               <= 0     ? 0 : 1 * local.enabled}"
+  target_healthy_host_alarm_enabled       = "${floor(var.target_healthy_host_count_threshold)      <= 0     ? 0 : 1 * local.enabled}"
+  target_healthy_host_warn_alarm_enabled  = "${floor(var.target_healthy_host_warn_count_threshold) <= 0     ? 0 : 1 * local.enabled}"
+  target_response_time_alarm_enabled      = "${floor(var.target_response_time_threshold)           <= 0     ? 0 : 1 * local.enabled}"
 
   target_group_dimensions_map = {
     "TargetGroup"  = "${var.target_group_arn_suffix}"
