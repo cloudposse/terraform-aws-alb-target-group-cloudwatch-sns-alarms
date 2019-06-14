@@ -124,7 +124,7 @@ variable "target_4xx_count_threshold" {
   default     = "10"
 }
 
-variable "target_4xx_warn_count_threshold" {
+variable "target_4xx_count_warn_threshold" {
   type        = "string"
   description = "The maximum count of 4XX requests over a period. A value `<=0` will disable the alert."
   default     = "0"
@@ -136,7 +136,7 @@ variable "target_5xx_count_threshold" {
   default     = "10"
 }
 
-variable "target_5xx_warn_count_threshold" {
+variable "target_5xx_count_warn_threshold" {
   type        = "string"
   description = "The maximum count of 5XX requests over a period. A value `<=0` will disable the alert."
   default     = "0"
@@ -148,7 +148,7 @@ variable "elb_5xx_count_threshold" {
   default     = "10"
 }
 
-variable "elb_5xx_warn_count_threshold" {
+variable "elb_5xx_count_warn_threshold" {
   type        = "string"
   description = "The maximum count of ELB 5XX requests over a period. A value `<=0` will disable the alert."
   default     = "0"
@@ -166,7 +166,7 @@ variable "target_healthy_host_count_threshold" {
   default     = "1"
 }
 
-variable "target_healthy_host_warn_count_threshold" {
+variable "target_healthy_host_count_warn_threshold" {
   type        = "string"
   description = "A value below which a WARNING alert will trigger for healthy hosts in a target group. A value `<=0` will disable the alert."
   default     = "0"
