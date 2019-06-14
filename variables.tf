@@ -175,7 +175,7 @@ variable "target_healthy_host_count_warn_threshold" {
 variable "target_healthy_host_alarm_description" {
   type        = "string"
   description = "The string to format and use as the healthy host alarm description."
-  default     = "Healthy hosts count for %v below %v for last %d minute(s)"
+  default     = "Healthy host count for %v below %v for last %d minute(s)"
 }
 
 variable "target_response_time_threshold" {
