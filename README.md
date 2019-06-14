@@ -33,7 +33,7 @@ module "alb_alarms" {
 | attributes | List of attributes to add to label. | list | `<list>` | no |
 | delimiter | The delimiter to be used in labels. | string | `-` | no |
 | elb_5xx_count_threshold | The maximum count of ELB 5XX requests over a period. A value `<=0` will disable the alert. | string | `10` | no |
-| elb_5xx_warn_count_threshold | The maximum count of ELB 5XX requests over a period. A value `<=0` will disable the alert. | string | `0` | no |
+| elb_5xx_count_warn_threshold | The maximum count of ELB 5XX requests over a period. A value `<=0` will disable the alert. | string | `0` | no |
 | enabled | Whether to create all resources. | string | `true` | no |
 | evaluation_periods | Number of periods to evaluate for the alarm. | string | `2` | no |
 | httpcode_alarm_description | The string to format and use as the httpcode alarm description. | string | `HTTPCode %v count for %v over %v last %d minute(s) over %v period(s)` | no |
@@ -48,13 +48,13 @@ module "alb_alarms" {
 | stack | Stack (e.g. `prod-us-east-1`, `dev-us-west-2`) | string | - | yes |
 | tags | Map of key-value pairs to use for tags. | map | `<map>` | no |
 | target_4xx_count_threshold | The maximum count of 4XX requests over a period. A value `<=0` will disable the alert. | string | `10` | no |
-| target_4xx_warn_count_threshold | The maximum count of 4XX requests over a period. A value `<=0` will disable the alert. | string | `0` | no |
+| target_4xx_count_warn_threshold | The maximum count of 4XX requests over a period. A value `<=0` will disable the alert. | string | `0` | no |
 | target_5xx_count_threshold | The maximum count of 5XX requests over a period. A value `<=0` will disable the alert. | string | `10` | no |
-| target_5xx_warn_count_threshold | The maximum count of 5XX requests over a period. A value `<=0` will disable the alert. | string | `0` | no |
+| target_5xx_count_warn_threshold | The maximum count of 5XX requests over a period. A value `<=0` will disable the alert. | string | `0` | no |
 | target_group_arn_suffix | The ARN suffix of ALB Target Group. | string | - | yes |
 | target_group_name | The name of the ALB Target Group to monitor. | string | - | yes |
 | target_healthy_host_count_threshold | A value below which an alert will trigger for healthy hosts in a target group. A value `<=0` will disable the alert. | string | `1` | no |
-| target_healthy_host_warn_count_threshold | A value below which a WARNING alert will trigger for healthy hosts in a target group. A value `<=0` will disable the alert. | string | `0` | no |
+| target_healthy_host_count_warn_threshold | A value below which a WARNING alert will trigger for healthy hosts in a target group. A value `<=0` will disable the alert. | string | `0` | no |
 | target_healthy_host_alarm_description | The string to format and use as the healthy host alarm description. | string | `Healthy hosts count for %v below %v for last %d minute(s)` | no |
 | target_response_time_alarm_description | The string to format and use as the target response time alarm description. | string | `Target Response Time average for %v over %v last %d minute(s) over %v period(s)` | no |
 | target_response_time_threshold | The maximum average target response time (in seconds) over a period. A value `<=0` will disable the alert. | string | `0` | no |

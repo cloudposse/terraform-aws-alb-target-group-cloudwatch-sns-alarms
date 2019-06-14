@@ -9,22 +9,22 @@ locals {
 
   thresholds = {
     elb_5xx_count                  = "${max(var.elb_5xx_count_threshold, 0)}"
-    elb_5xx_warn_count             = "${max(var.elb_5xx_warn_count_threshold, 0)}"
+    elb_5xx_count_warn             = "${max(var.elb_5xx_count_warn_threshold, 0)}"
     target_4xx_count               = "${max(var.target_4xx_count_threshold, 0)}"
-    target_4xx_warn_count          = "${max(var.target_4xx_warn_count_threshold, 0)}"
+    target_4xx_count_warn          = "${max(var.target_4xx_count_warn_threshold, 0)}"
     target_5xx_count               = "${max(var.target_5xx_count_threshold, 0)}"
-    target_5xx_warn_count          = "${max(var.target_5xx_warn_count_threshold, 0)}"
+    target_5xx_count_warn          = "${max(var.target_5xx_count_warn_threshold, 0)}"
     target_healthy_host_count      = "${max(var.target_healthy_host_count_threshold, 0)}"
-    target_healthy_host_warn_count = "${max(var.target_healthy_host_warn_count_threshold, 0)}"
+    target_healthy_host_count_warn = "${max(var.target_healthy_host_count_warn_threshold, 0)}"
     target_response_time           = "${max(var.target_response_time_threshold, 0)}"
-    target_response_warn_time      = "${max(var.target_response_warn_time_threshold, 0)}"
+    target_response_time_warn      = "${max(var.target_response_time_warn_threshold, 0)}"
   }
 
   elb_5xx_alarm_enabled                   = "${floor(var.elb_5xx_count_threshold)                  <= 0     ? 0 : 1 * local.enabled}"
   target_4xx_alarm_enabled                = "${floor(var.target_4xx_count_threshold)               <= 0     ? 0 : 1 * local.enabled}"
   target_5xx_alarm_enabled                = "${floor(var.target_5xx_count_threshold)               <= 0     ? 0 : 1 * local.enabled}"
   target_healthy_host_alarm_enabled       = "${floor(var.target_healthy_host_count_threshold)      <= 0     ? 0 : 1 * local.enabled}"
-  target_healthy_host_warn_alarm_enabled  = "${floor(var.target_healthy_host_warn_count_threshold) <= 0     ? 0 : 1 * local.enabled}"
+  target_healthy_host_warn_alarm_enabled  = "${floor(var.target_healthy_host_count_warn_threshold) <= 0     ? 0 : 1 * local.enabled}"
   target_response_time_alarm_enabled      = "${floor(var.target_response_time_threshold)           <= 0     ? 0 : 1 * local.enabled}"
 
   target_group_dimensions_map = {
@@ -64,7 +64,7 @@ resource "aws_cloudwatch_metric_alarm" "httpcode_target_4xx_count" {
   dimensions = "${local.target_group_dimensions_map}"
 }
 
-resource "aws_cloudwatch_metric_alarm" "httpcode_target_4xx_warn_count" {
+resource "aws_cloudwatch_metric_alarm" "httpcode_target_4xx_count_warn" {
   count                     = "${local.target_4xx_alarm_warn_enabled}"
   alarm_name                = "${format(module.httpcode_alarm_label.id, "4XX")}"
   comparison_operator       = "GreaterThanThreshold"
@@ -73,7 +73,7 @@ resource "aws_cloudwatch_metric_alarm" "httpcode_target_4xx_warn_count" {
   namespace                 = "AWS/ApplicationELB"
   period                    = "${var.period}"
   statistic                 = "Sum"
-  threshold                 = "${local.thresholds["target_4xx_warn_count"]}"
+  threshold                 = "${local.thresholds["target_4xx_count_warn"]}"
   treat_missing_data        = "${var.treat_missing_data}"
   alarm_description         = "${format(var.httpcode_alarm_description, "4XX", module.default_label.id, local.thresholds["target_4xx_count_warn"], var.period/60, var.evaluation_periods)}"
   alarm_actions             = ["${local.alarm_warn_actions}"]
@@ -102,7 +102,7 @@ resource "aws_cloudwatch_metric_alarm" "httpcode_target_5xx_count" {
   dimensions = "${local.target_group_dimensions_map}"
 }
 
-resource "aws_cloudwatch_metric_alarm" "httpcode_target_5xx_warn_count" {
+resource "aws_cloudwatch_metric_alarm" "httpcode_target_5xx_count_warn" {
   count                     = "${local.target_5xx_alarm_warn_enabled}"
   alarm_name                = "${format(module.httpcode_alarm_label.id, "5XX")}"
   comparison_operator       = "GreaterThanThreshold"
@@ -111,9 +111,9 @@ resource "aws_cloudwatch_metric_alarm" "httpcode_target_5xx_warn_count" {
   namespace                 = "AWS/ApplicationELB"
   period                    = "${var.period}"
   statistic                 = "Sum"
-  threshold                 = "${local.thresholds["target_5xx_warn_count"]}"
+  threshold                 = "${local.thresholds["target_5xx_count_warn"]}"
   treat_missing_data        = "${var.treat_missing_data}"
-  alarm_description         = "${format(var.httpcode_alarm_description, "5XX", module.default_label.id, local.thresholds["target_5xx_warn_count"], var.period/60, var.evaluation_periods)}"
+  alarm_description         = "${format(var.httpcode_alarm_description, "5XX", module.default_label.id, local.thresholds["target_5xx_count_warn"], var.period/60, var.evaluation_periods)}"
   alarm_actions             = ["${local.alarm_warn_actions}"]
   ok_actions                = ["${local.ok_warn_actions}"]
   insufficient_data_actions = ["${local.insufficient_data_warn_actions}"]
@@ -140,7 +140,7 @@ resource "aws_cloudwatch_metric_alarm" "healthy_host_target_count" {
   dimensions = "${local.target_group_dimensions_map}"
 }
 
-resource "aws_cloudwatch_metric_alarm" "healthy_host_target_warn_count" {
+resource "aws_cloudwatch_metric_alarm" "healthy_host_target_count_warn" {
   count                     = "${local.target_healthy_host_alarm_warn_enabled}"
   alarm_name                = "${format(module.httpcode_alarm_label.id, "HealthyHost")}"
   comparison_operator       = "LessThanThreshold"
@@ -149,9 +149,9 @@ resource "aws_cloudwatch_metric_alarm" "healthy_host_target_warn_count" {
   namespace                 = "AWS/ApplicationELB"
   period                    = "${var.period}"
   statistic                 = "Minimum"
-  threshold                 = "${local.thresholds["target_healthy_host_warn_count"]}"
+  threshold                 = "${local.thresholds["target_healthy_host_count_warn"]}"
   treat_missing_data        = "${var.treat_missing_data}"
-  alarm_description         = "${format(var.target_healthy_host_alarm_description, module.default_label.id, local.thresholds["target_healthy_host_warn_count"], var.period/60)}"
+  alarm_description         = "${format(var.target_healthy_host_alarm_description, module.default_label.id, local.thresholds["target_healthy_host_count_warn"], var.period/60)}"
   alarm_actions             = ["${local.alarm_warn_actions}"]
   ok_actions                = ["${local.ok_warn_actions}"]
   insufficient_data_actions = ["${local.insufficient_data_warn_actions}"]
