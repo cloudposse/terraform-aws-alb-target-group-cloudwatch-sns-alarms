@@ -160,6 +160,12 @@ variable "httpcode_alarm_description" {
   default     = "HTTPCode %v count for %v over %v last %d minute(s) over %v period(s)"
 }
 
+variable "httpcode_rate_alarm_description" {
+  type        = "string"
+  description = "The string to format and use as the httpcode rate alarm description."
+  default     = "HTTPCode %v rate for %v over %v percent last %d minute(s) over %v period(s)"
+}
+
 variable "target_healthy_host_count_threshold" {
   type        = "string"
   description = "A value below which an alert will trigger for healthy hosts in a target group. A value `<=0` will disable the alert."

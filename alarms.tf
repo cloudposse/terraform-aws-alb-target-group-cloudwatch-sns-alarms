@@ -47,6 +47,14 @@ module "httpcode_alarm_label" {
   attributes = "${compact(concat(var.attributes, list("%v", "count", "high")))}"
 }
 
+module "httpcode_rate_alarm_label" {
+  source     = "git::https://github.com/cloudposse/terraform-terraform-label.git?ref=tags/0.1.3"
+  name       = "${var.name}"
+  namespace  = "${var.namespace}"
+  stage      = "${var.stage}"
+  attributes = "${compact(concat(var.attributes, list("%v", "rate", "high")))}"
+}
+
 resource "aws_cloudwatch_metric_alarm" "httpcode_target_4xx_count" {
   count                     = "${local.target_4xx_alarm_enabled}"
   alarm_name                = "${format(module.httpcode_alarm_label.id, "4XX")}"
@@ -83,6 +91,54 @@ resource "aws_cloudwatch_metric_alarm" "httpcode_target_4xx_count_warn" {
   insufficient_data_actions = ["${local.insufficient_data_warn_actions}"]
 
   dimensions = "${local.target_group_dimensions_map}"
+}
+
+resource "aws_cloudwatch_metric_alarm" "httpcode_target_4xx_rate" {
+  count                     = "${local.target_4xx_rate_alarm_enabled}"
+  alarm_name                = "${format(module.httpcode_rate_alarm_label.id, "4XX")}"
+  comparison_operator       = "GreaterThanOrEqualToThreshold"
+  evaluation_periods        = "${var.evaluation_periods}"
+  threshold                 = "${local.thresholds["target_4xx_rate"]}"
+  treat_missing_data        = "${var.treat_missing_data}"
+  alarm_description         = "${format(var.httpcode_rate_alarm_description, "4XX", module.default_label.id, local.thresholds["target_4xx_rate"], var.period/60, var.evaluation_periods)}"
+  alarm_actions             = ["${local.alarm_actions}"]
+  ok_actions                = ["${local.ok_actions}"]
+  insufficient_data_actions = ["${local.insufficient_data_actions}"]
+
+  metric_query {
+    id          = "e1"
+    expression  = "m2/m1*100"
+    label       = "Error Rate"
+    return_data = "true"
+  }
+
+  metric_query {
+    id = "m1"
+
+    metric {
+      metric_name = "RequestCount"
+      namespace   = "AWS/ApplicationELB"
+      period      = "${var.period}"
+      stat        = "Sum"
+      unit        = "Count"
+
+      dimensions = "${local.target_group_dimensions_map}"
+    }
+  }
+
+  metric_query {
+    id = "m2"
+
+    metric {
+      metric_name = "HTTPCode_Target_4XX_Count"
+      namespace   = "AWS/ApplicationELB"
+      period      = "${var.period}"
+      stat        = "Sum"
+      unit        = "Count"
+
+      dimensions = "${local.target_group_dimensions_map}"
+    }
+  }
 }
 
 resource "aws_cloudwatch_metric_alarm" "httpcode_target_5xx_count" {
