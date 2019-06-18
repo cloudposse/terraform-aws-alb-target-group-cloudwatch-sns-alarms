@@ -121,7 +121,7 @@ variable "period" {
 variable "target_4xx_count_threshold" {
   type        = "string"
   description = "The maximum count of 4XX requests over a period. A value `<=0` will disable the alert."
-  default     = "10"
+  default     = "0"
 }
 
 variable "target_4xx_count_warn_threshold" {
@@ -130,10 +130,22 @@ variable "target_4xx_count_warn_threshold" {
   default     = "0"
 }
 
+variable "target_4xx_rate_threshold" {
+  type        = "string"
+  description = "The maximum rate of 4XX requests over a period. A value `<=0` will disable the alert."
+  default     = "30"
+}
+
+variable "target_4xx_rate_warn_threshold" {
+  type        = "string"
+  description = "The maximum rate of 4XX requests over a period. A value `<=0` will disable the alert."
+  default     = "10"
+}
+
 variable "target_5xx_count_threshold" {
   type        = "string"
   description = "The maximum count of 5XX requests over a period. A value `<=0` will disable the alert."
-  default     = "10"
+  default     = "0"
 }
 
 variable "target_5xx_count_warn_threshold" {
@@ -142,10 +154,22 @@ variable "target_5xx_count_warn_threshold" {
   default     = "0"
 }
 
+variable "target_5xx_rate_threshold" {
+  type        = "string"
+  description = "The maximum rate of 5XX requests over a period. A value `<=0` will disable the alert."
+  default     = "30"
+}
+
+variable "target_5xx_rate_warn_threshold" {
+  type        = "string"
+  description = "The maximum rate of 5XX requests over a period. A value `<=0` will disable the alert."
+  default     = "10"
+}
+
 variable "elb_5xx_count_threshold" {
   type        = "string"
   description = "The maximum count of ELB 5XX requests over a period. A value `<=0` will disable the alert."
-  default     = "10"
+  default     = "0"
 }
 
 variable "elb_5xx_count_warn_threshold" {
