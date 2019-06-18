@@ -84,7 +84,7 @@ resource "aws_cloudwatch_metric_alarm" "httpcode_target_4xx_count" {
 
 resource "aws_cloudwatch_metric_alarm" "httpcode_target_4xx_count_warn" {
   count                     = "${local.target_4xx_warn_alarm_enabled}"
-  alarm_name                = "${format(module.httpcode_alarm_label.id, "4XX")}"
+  alarm_name                = "${format(module.httpcode_alarm_label.id, "4XX warn")}"
   comparison_operator       = "GreaterThanThreshold"
   evaluation_periods        = "${var.evaluation_periods}"
   metric_name               = "HTTPCode_Target_4XX_Count"
@@ -151,7 +151,7 @@ resource "aws_cloudwatch_metric_alarm" "httpcode_target_4xx_rate" {
 
 resource "aws_cloudwatch_metric_alarm" "httpcode_target_4xx_rate_warn" {
   count                     = "${local.target_4xx_rate_warn_alarm_enabled}"
-  alarm_name                = "${format(module.httpcode_rate_alarm_label.id, "4XX")}"
+  alarm_name                = "${format(module.httpcode_rate_alarm_label.id, "4XX warn")}"
   comparison_operator       = "GreaterThanOrEqualToThreshold"
   evaluation_periods        = "${var.evaluation_periods}"
   threshold                 = "${local.thresholds["target_4xx_rate_warn"]}"
@@ -218,7 +218,7 @@ resource "aws_cloudwatch_metric_alarm" "httpcode_target_5xx_count" {
 
 resource "aws_cloudwatch_metric_alarm" "httpcode_target_5xx_count_warn" {
   count                     = "${local.target_5xx_warn_alarm_enabled}"
-  alarm_name                = "${format(module.httpcode_alarm_label.id, "5XX")}"
+  alarm_name                = "${format(module.httpcode_alarm_label.id, "5XX warn")}"
   comparison_operator       = "GreaterThanThreshold"
   evaluation_periods        = "${var.evaluation_periods}"
   metric_name               = "HTTPCode_Target_5XX_Count"
@@ -285,7 +285,7 @@ resource "aws_cloudwatch_metric_alarm" "httpcode_target_5xx_rate" {
 
 resource "aws_cloudwatch_metric_alarm" "httpcode_target_5xx_rate_warn" {
   count                     = "${local.target_5xx_rate_warn_alarm_enabled}"
-  alarm_name                = "${format(module.httpcode_rate_alarm_label.id, "5XX")}"
+  alarm_name                = "${format(module.httpcode_rate_alarm_label.id, "5XX warn")}"
   comparison_operator       = "GreaterThanOrEqualToThreshold"
   evaluation_periods        = "${var.evaluation_periods}"
   threshold                 = "${local.thresholds["target_5xx_rate_warn"]}"
@@ -352,7 +352,7 @@ resource "aws_cloudwatch_metric_alarm" "healthy_host_target_count" {
 
 resource "aws_cloudwatch_metric_alarm" "healthy_host_target_count_warn" {
   count                     = "${local.target_healthy_host_warn_alarm_enabled}"
-  alarm_name                = "${format(module.httpcode_alarm_label.id, "HealthyHost")}"
+  alarm_name                = "${format(module.httpcode_alarm_label.id, "HealthyHost warn")}"
   comparison_operator       = "LessThanThreshold"
   evaluation_periods        = "${var.evaluation_periods}"
   metric_name               = "HealthyHostCount"
