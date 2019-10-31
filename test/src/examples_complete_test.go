@@ -53,7 +53,7 @@ func TestExamplesComplete(t *testing.T) {
 	// Run `terraform output` to get the value of an output variable
 	defaultTargetGroupArn := terraform.Output(t, terraformOptions, "target_group_arn")
 	// Verify we're getting back the outputs we expect
-	assert.Contains(t, defaultTargetGroupArn, "arn:aws:elasticloadbalancing:us-east-2:126450723953:targetgroup/eg-test-alb-tg-cw-alarms")
+	assert.Contains(t, defaultTargetGroupArn, "targetgroup/eg-test-alb-tg-cw-alarms")
 
 	// Run `terraform output` to get the value of an output variable
 	httpcodeElb5xxCountCloudwatchMetricAlarmId := terraform.Output(t, terraformOptions, "httpcode_elb_5xx_count_cloudwatch_metric_alarm_id")
