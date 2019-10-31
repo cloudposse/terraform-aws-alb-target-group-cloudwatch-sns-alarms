@@ -103,14 +103,14 @@ module "alb_alarms" {
 |------|-------------|
 | httpcode_elb_5xx_count_cloudwatch_metric_alarm_arn | ELB 5xx count CloudWatch metric alarm ARN |
 | httpcode_elb_5xx_count_cloudwatch_metric_alarm_id | ELB 5xx count CloudWatch metric alarm ID |
-| httpcode_target_3xx_count_cloudwatch_metric_alarm_arn | Target 3xx count CloudWatch metric alarm ARN |
-| httpcode_target_3xx_count_cloudwatch_metric_alarm_id | Target 3xx count CloudWatch metric alarm ID |
-| httpcode_target_4xx_count_cloudwatch_metric_alarm_arn | Target 4xx count CloudWatch metric alarm ARN |
-| httpcode_target_4xx_count_cloudwatch_metric_alarm_id | Target 4xx count CloudWatch metric alarm ID |
-| httpcode_target_5xx_count_cloudwatch_metric_alarm_arn | Target 5xx count CloudWatch metric alarm ARN |
-| httpcode_target_5xx_count_cloudwatch_metric_alarm_id | Target 5xx count CloudWatch metric alarm ID |
-| target_response_time_average_cloudwatch_metric_alarm_arn | Response time average CloudWatch metric alarm ARN |
-| target_response_time_average_cloudwatch_metric_alarm_id | Response time average CloudWatch metric alarm ID |
+| httpcode_target_3xx_count_cloudwatch_metric_alarm_arn | Target Group 3xx count CloudWatch metric alarm ARN |
+| httpcode_target_3xx_count_cloudwatch_metric_alarm_id | Target Group 3xx count CloudWatch metric alarm ID |
+| httpcode_target_4xx_count_cloudwatch_metric_alarm_arn | Target Group 4xx count CloudWatch metric alarm ARN |
+| httpcode_target_4xx_count_cloudwatch_metric_alarm_id | Target Group 4xx count CloudWatch metric alarm ID |
+| httpcode_target_5xx_count_cloudwatch_metric_alarm_arn | Target Group 5xx count CloudWatch metric alarm ARN |
+| httpcode_target_5xx_count_cloudwatch_metric_alarm_id | Target Group 5xx count CloudWatch metric alarm ID |
+| target_response_time_average_cloudwatch_metric_alarm_arn | Target Group response time average CloudWatch metric alarm ARN |
+| target_response_time_average_cloudwatch_metric_alarm_id | Target Group response time average CloudWatch metric alarm ID |
 
 
 
