@@ -18,9 +18,9 @@ github_repo: cloudposse/terraform-aws-alb-target-group-cloudwatch-sns-alarms
 
 # Badges to display
 badges:
-  - name: "Build Status"
-    image: "https://travis-ci.org/cloudposse/terraform-aws-alb-target-group-cloudwatch-sns-alarms.svg?branch=master"
-    url: "https://travis-ci.org/cloudposse/terraform-aws-alb-target-group-cloudwatch-sns-alarms"
+  - name: "Codefresh Build Status"
+    image: "https://g.codefresh.io/api/badges/pipeline/cloudposse/terraform-modules%2Fterraform-aws-alb-target-group-cloudwatch-sns-alarms?type=cf-1"
+    url: "https://g.codefresh.io/public/accounts/cloudposse/pipelines/5dba07f385cef5aae3230899"
   - name: "Latest Release"
     image: "https://img.shields.io/github/release/cloudposse/terraform-aws-alb-target-group-cloudwatch-sns-alarms.svg"
     url: "https://github.com/cloudposse/terraform-aws-alb-target-group-cloudwatch-sns-alarms/releases/latest"
@@ -79,15 +79,17 @@ description: |-
 
 # How to use this project
 usage: |-
+  For a complete example, see [examples/complete](examples/complete).
+
+  For automated tests of the complete example using `bats` and `Terratest`, see [test](test).
+
   ```hcl
   module "alb_alarms" {
     source                  = "git::https://github.com/cloudposse/terraform-aws-alb-target-group-cloudwatch-sns-alarms.git?ref=master"
+    namespace               = "eg"
+    stage                   = "staging"
     name                    = "app"
-    namespace               = "cp"
-    stage                   = "prod"
-    alb_name                = "cp-prod-app-alb"
     alb_arn_suffix          = "XXXXXXXXX"
-    target_group_name       = "cp-prod-app-tg"
     target_group_arn_suffix = "YYYYYYYYY"
   }
   ```
@@ -111,3 +113,5 @@ contributors:
     github: "Jamie-BitFlight"
   - name: "Sarkis Varozian"
     github: "sarkis"
+  - name: "Andriy Knysh"
+    github: "aknysh"
