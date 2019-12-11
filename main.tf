@@ -46,9 +46,9 @@ module "target_response_time_alarm_label" {
 
 locals {
   # default to using notify_arns unless a more specific action is specified.
-  alarm_actions             = coalescelist(var.alarm_actions, var.notify_arns)
-  ok_actions                = coalescelist(var.ok_actions, var.notify_arns)
-  insufficient_data_actions = coalescelist(var.insufficient_data_actions, var.notify_arns)
+  alarm_actions             = compact(coalescelist(var.alarm_actions, var.notify_arns))
+  ok_actions                = compact(coalescelist(var.ok_actions, var.notify_arns))
+  insufficient_data_actions = compact(coalescelist(var.insufficient_data_actions, var.notify_arns))
 
   thresholds = {
     target_3xx_count     = max(var.target_3xx_count_threshold, 0)
@@ -90,6 +90,7 @@ resource "aws_cloudwatch_metric_alarm" "httpcode_target_3xx_count" {
   ok_actions                = local.ok_actions
   insufficient_data_actions = local.insufficient_data_actions
   dimensions                = local.target_group_dimensions_map
+  tags                      = module.httpcode_target_3xx_alarm_label.tags
 }
 
 resource "aws_cloudwatch_metric_alarm" "httpcode_target_4xx_count" {
@@ -108,6 +109,7 @@ resource "aws_cloudwatch_metric_alarm" "httpcode_target_4xx_count" {
   ok_actions                = local.ok_actions
   insufficient_data_actions = local.insufficient_data_actions
   dimensions                = local.target_group_dimensions_map
+  tags                      = module.httpcode_target_4xx_alarm_label.tags
 }
 
 resource "aws_cloudwatch_metric_alarm" "httpcode_target_5xx_count" {
@@ -126,6 +128,7 @@ resource "aws_cloudwatch_metric_alarm" "httpcode_target_5xx_count" {
   ok_actions                = local.ok_actions
   insufficient_data_actions = local.insufficient_data_actions
   dimensions                = local.target_group_dimensions_map
+  tags                      = module.httpcode_target_5xx_alarm_label.tags
 }
 
 resource "aws_cloudwatch_metric_alarm" "httpcode_elb_5xx_count" {
@@ -144,6 +147,7 @@ resource "aws_cloudwatch_metric_alarm" "httpcode_elb_5xx_count" {
   ok_actions                = local.ok_actions
   insufficient_data_actions = local.insufficient_data_actions
   dimensions                = local.load_balancer_dimensions_map
+  tags                      = module.httpcode_elb_5xx_alarm_label.tags
 }
 
 resource "aws_cloudwatch_metric_alarm" "target_response_time_average" {
@@ -162,4 +166,5 @@ resource "aws_cloudwatch_metric_alarm" "target_response_time_average" {
   ok_actions                = local.ok_actions
   insufficient_data_actions = local.insufficient_data_actions
   dimensions                = local.target_group_dimensions_map
+  tags                      = module.target_response_time_alarm_label.tags
 }
