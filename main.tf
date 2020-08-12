@@ -1,5 +1,5 @@
 module "default_label" {
-  source     = "git::https://github.com/cloudposse/terraform-null-label.git?ref=tags/0.16.0"
+  source     = "git::https://github.com/cloudposse/terraform-null-label.git?ref=tags/0.17.0"
   enabled    = var.enabled
   name       = var.name
   namespace  = var.namespace
@@ -10,35 +10,35 @@ module "default_label" {
 }
 
 module "httpcode_target_3xx_alarm_label" {
-  source     = "git::https://github.com/cloudposse/terraform-null-label.git?ref=tags/0.16.0"
+  source     = "git::https://github.com/cloudposse/terraform-null-label.git?ref=tags/0.17.0"
   enabled    = var.enabled
   context    = module.default_label.context
   attributes = compact(concat(var.attributes, ["3XX", "count", "high"]))
 }
 
 module "httpcode_target_4xx_alarm_label" {
-  source     = "git::https://github.com/cloudposse/terraform-null-label.git?ref=tags/0.16.0"
+  source     = "git::https://github.com/cloudposse/terraform-null-label.git?ref=tags/0.17.0"
   enabled    = var.enabled
   context    = module.default_label.context
   attributes = compact(concat(var.attributes, ["4XX", "count", "high"]))
 }
 
 module "httpcode_target_5xx_alarm_label" {
-  source     = "git::https://github.com/cloudposse/terraform-null-label.git?ref=tags/0.16.0"
+  source     = "git::https://github.com/cloudposse/terraform-null-label.git?ref=tags/0.17.0"
   enabled    = var.enabled
   context    = module.default_label.context
   attributes = compact(concat(var.attributes, ["5XX", "count", "high"]))
 }
 
 module "httpcode_elb_5xx_alarm_label" {
-  source     = "git::https://github.com/cloudposse/terraform-null-label.git?ref=tags/0.16.0"
+  source     = "git::https://github.com/cloudposse/terraform-null-label.git?ref=tags/0.17.0"
   enabled    = var.enabled
   context    = module.default_label.context
   attributes = compact(concat(var.attributes, ["ELB", "5XX", "count", "high"]))
 }
 
 module "target_response_time_alarm_label" {
-  source     = "git::https://github.com/cloudposse/terraform-null-label.git?ref=tags/0.16.0"
+  source     = "git::https://github.com/cloudposse/terraform-null-label.git?ref=tags/0.17.0"
   enabled    = var.enabled
   context    = module.default_label.context
   attributes = compact(concat(var.attributes, ["target", "response", "high"]))
