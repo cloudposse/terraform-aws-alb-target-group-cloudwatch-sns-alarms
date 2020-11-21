@@ -2,88 +2,55 @@ provider "aws" {
   region = var.region
 }
 
-module "label" {
-  source     = "git::https://github.com/cloudposse/terraform-null-label.git?ref=tags/0.17.0"
-  namespace  = var.namespace
-  name       = var.name
-  stage      = var.stage
-  delimiter  = var.delimiter
-  attributes = var.attributes
-  tags       = var.tags
-}
-
 module "vpc" {
-  source     = "git::https://github.com/cloudposse/terraform-aws-vpc.git?ref=tags/0.8.1"
-  namespace  = var.namespace
-  stage      = var.stage
-  name       = var.name
-  delimiter  = var.delimiter
-  attributes = var.attributes
+  source     = "git::https://github.com/cloudposse/terraform-aws-vpc.git?ref=tags/0.18.0"
   cidr_block = var.vpc_cidr_block
-  tags       = var.tags
+
+  context = module.this.context
 }
 
 module "subnets" {
-  source               = "git::https://github.com/cloudposse/terraform-aws-dynamic-subnets.git?ref=tags/0.16.1"
+  source               = "git::https://github.com/cloudposse/terraform-aws-dynamic-subnets.git?ref=tags/0.31.0"
   availability_zones   = var.availability_zones
-  namespace            = var.namespace
-  stage                = var.stage
-  name                 = var.name
-  attributes           = var.attributes
-  delimiter            = var.delimiter
   vpc_id               = module.vpc.vpc_id
   igw_id               = module.vpc.igw_id
   cidr_block           = module.vpc.vpc_cidr_block
   nat_gateway_enabled  = false
   nat_instance_enabled = false
-  tags                 = var.tags
+
+  context = module.this.context
 }
 
 module "alb" {
-  source                                  = "git::https://github.com/cloudposse/terraform-aws-alb.git?ref=tags/0.7.0"
-  namespace                               = var.namespace
-  stage                                   = var.stage
-  name                                    = var.name
-  attributes                              = var.attributes
-  delimiter                               = var.delimiter
+  source                                  = "git::https://github.com/cloudposse/terraform-aws-alb.git?ref=tags/0.21.0"
   vpc_id                                  = module.vpc.vpc_id
   security_group_ids                      = [module.vpc.vpc_default_security_group_id]
   subnet_ids                              = module.subnets.public_subnet_ids
   target_group_name                       = module.alb_ingress.target_group_name
   access_logs_enabled                     = false
   alb_access_logs_s3_bucket_force_destroy = true
-  tags                                    = var.tags
+
+  context = module.this.context
 }
 
 module "alb_ingress" {
-  source                              = "git::https://github.com/cloudposse/terraform-aws-alb-ingress.git?ref=tags/0.9.0"
-  namespace                           = var.namespace
-  stage                               = var.stage
-  name                                = var.name
-  attributes                          = var.attributes
-  delimiter                           = var.delimiter
+  source                              = "git::https://github.com/cloudposse/terraform-aws-alb-ingress.git?ref=tags/0.15.0"
   vpc_id                              = module.vpc.vpc_id
   default_target_group_enabled        = true
   unauthenticated_listener_arns       = [module.alb.http_listener_arn]
   unauthenticated_listener_arns_count = 1
-  tags                                = var.tags
+
+  context = module.this.context
 }
 
 resource "aws_sns_topic" "sns_topic" {
-  name         = module.label.id
+  name         = module.this.id
   display_name = "Test terraform-aws-alb-target-group-cloudwatch-sns-alarms"
-  tags         = module.label.tags
+  tags         = module.this.tags
 }
 
 module "alb_target_group_cloudwatch_sns_alarms" {
   source     = "../../"
-  namespace  = var.namespace
-  stage      = var.stage
-  name       = var.name
-  attributes = var.attributes
-  delimiter  = var.delimiter
-  tags       = var.tags
-
   alb_arn_suffix          = module.alb.alb_arn_suffix
   target_group_arn_suffix = module.alb_ingress.target_group_arn_suffix
 
@@ -99,4 +66,6 @@ module "alb_target_group_cloudwatch_sns_alarms" {
   alarm_actions             = [aws_sns_topic.sns_topic.arn]
   ok_actions                = [aws_sns_topic.sns_topic.arn]
   insufficient_data_actions = [aws_sns_topic.sns_topic.arn]
+
+  context = module.this.context
 }
