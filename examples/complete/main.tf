@@ -50,7 +50,7 @@ resource "aws_sns_topic" "sns_topic" {
 }
 
 module "alb_target_group_cloudwatch_sns_alarms" {
-  source     = "../../"
+  source                  = "../../"
   alb_arn_suffix          = module.alb.alb_arn_suffix
   target_group_arn_suffix = module.alb_ingress.target_group_arn_suffix
 
