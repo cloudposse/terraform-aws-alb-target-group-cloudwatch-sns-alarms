@@ -13,11 +13,6 @@ variable "vpc_cidr_block" {
   description = "VPC CIDR block"
 }
 
-variable "namespace" {
-  type        = string
-  description = "Namespace (e.g. `eg` or `cp`)"
-}
-
 variable "evaluation_periods" {
   type        = number
   description = "Number of periods to evaluate for the alarm"
