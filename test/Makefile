@@ -1,43 +1,30 @@
-TEST_HARNESS ?= https://github.com/cloudposse/test-harness.git
-TEST_HARNESS_BRANCH ?= master
-TEST_HARNESS_PATH = $(realpath .test-harness)
-BATS_ARGS ?= --tap
-BATS_LOG ?= test.log
+export TF_CLI_ARGS_init ?= -get-plugins=true
+export TERRAFORM_VERSION ?= $(shell curl -s https://checkpoint-api.hashicorp.com/v1/check/terraform | jq -r -M '.current_version' | cut -d. -f1-2)
 
-# Define a macro to run the tests
-define RUN_TESTS
-@echo "Running tests in $(1)"
-@cd $(1) && bats $(BATS_ARGS) $(addsuffix .bats,$(addprefix $(TEST_HARNESS_PATH)/test/terraform/,$(TESTS)))
-endef
+.DEFAULT_GOAL : all
+.PHONY: all
 
-default: all
+## Default target
+all: test
 
--include Makefile.*
-
-## Provision the test-harnesss
-.test-harness:
-	[ -d $@ ] || git clone --depth=1 -b $(TEST_HARNESS_BRANCH) $(TEST_HARNESS) $@
-
-## Initialize the tests
-init: .test-harness
-
-## Install all dependencies (OS specific)
-deps::
+.PHONY : init
+## Initialize tests
+init:
 	@exit 0
 
-## Clean up the test harness
+.PHONY : test
+## Run tests
+test: init
+	go mod download
+	go test -v -timeout 60m -run TestExamplesComplete
+
+## Run tests in docker container
+docker/test:
+	docker run --name terratest --rm -it -e AWS_ACCESS_KEY_ID -e AWS_SECRET_ACCESS_KEY -e AWS_SESSION_TOKEN -e GITHUB_TOKEN \
+		-e PATH="/usr/local/terraform/$(TERRAFORM_VERSION)/bin:/go/bin:/usr/local/go/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin" \
+		-v $(CURDIR)/../../:/module/ cloudposse/test-harness:latest -C /module/test/src test
+
+.PHONY : clean
+## Clean up files
 clean:
-	[ "$(TEST_HARNESS_PATH)" == "/" ] || rm -rf $(TEST_HARNESS_PATH)
-
-## Run all tests
-all: module examples/complete
-
-## Run basic sanity checks against the module itself
-module: export TESTS ?= installed lint get-modules module-pinning get-plugins provider-pinning validate terraform-docs input-descriptions output-descriptions
-module: deps
-	$(call RUN_TESTS, ../)
-
-## Run tests against example
-examples/complete: export TESTS ?= installed lint get-modules get-plugins validate
-examples/complete: deps
-	$(call RUN_TESTS, ../$@)
+	rm -rf ../../examples/complete/*.tfstate*
