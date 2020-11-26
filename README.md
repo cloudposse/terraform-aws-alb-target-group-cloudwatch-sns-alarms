@@ -88,6 +88,7 @@ module "alb_alarms" {
 
 
 
+<!-- markdownlint-disable -->
 ## Requirements
 
 | Name | Version |
@@ -147,6 +148,7 @@ module "alb_alarms" {
 | target\_response\_time\_average\_cloudwatch\_metric\_alarm\_arn | Target Group response time average CloudWatch metric alarm ARN |
 | target\_response\_time\_average\_cloudwatch\_metric\_alarm\_id | Target Group response time average CloudWatch metric alarm ID |
 
+<!-- markdownlint-restore -->
 
 
 
