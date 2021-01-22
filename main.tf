@@ -1,33 +1,38 @@
 module "httpcode_target_3xx_alarm_label" {
-  source     = "git::https://github.com/cloudposse/terraform-null-label.git?ref=tags/0.21.0"
+  source     = "cloudposse/label/null"
+  version    = "0.21.0"
   attributes = ["3XX", "count", "high"]
 
   context = module.this.context
 }
 
 module "httpcode_target_4xx_alarm_label" {
-  source     = "git::https://github.com/cloudposse/terraform-null-label.git?ref=tags/0.21.0"
+  source     = "cloudposse/label/null"
+  version    = "0.21.0"
   attributes = ["4XX", "count", "high"]
 
   context = module.this.context
 }
 
 module "httpcode_target_5xx_alarm_label" {
-  source     = "git::https://github.com/cloudposse/terraform-null-label.git?ref=tags/0.21.0"
+  source     = "cloudposse/label/null"
+  version    = "0.21.0"
   attributes = ["5XX", "count", "high"]
 
   context = module.this.context
 }
 
 module "httpcode_elb_5xx_alarm_label" {
-  source     = "git::https://github.com/cloudposse/terraform-null-label.git?ref=tags/0.21.0"
+  source     = "cloudposse/label/null"
+  version    = "0.21.0"
   attributes = ["ELB", "5XX", "count", "high"]
 
   context = module.this.context
 }
 
 module "target_response_time_alarm_label" {
-  source     = "git::https://github.com/cloudposse/terraform-null-label.git?ref=tags/0.21.0"
+  source     = "cloudposse/label/null"
+  version    = "0.21.0"
   attributes = ["target", "response", "high"]
 
   context = module.this.context
