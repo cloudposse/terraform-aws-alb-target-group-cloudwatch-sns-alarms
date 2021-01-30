@@ -4,7 +4,7 @@ provider "aws" {
 
 module "vpc" {
   source     = "cloudposse/vpc/aws"
-  version    = "0.18.0"
+  version    = "0.18.2"
   cidr_block = var.vpc_cidr_block
 
   context = module.this.context
@@ -12,7 +12,7 @@ module "vpc" {
 
 module "subnets" {
   source               = "cloudposse/dynamic-subnets/aws"
-  version              = "0.31.0"
+  version              = "0.35.0"
   availability_zones   = var.availability_zones
   vpc_id               = module.vpc.vpc_id
   igw_id               = module.vpc.igw_id
@@ -25,7 +25,7 @@ module "subnets" {
 
 module "alb" {
   source                                  = "cloudposse/alb/aws"
-  version                                 = "0.21.0"
+  version                                 = "0.27.0"
   vpc_id                                  = module.vpc.vpc_id
   security_group_ids                      = [module.vpc.vpc_default_security_group_id]
   subnet_ids                              = module.subnets.public_subnet_ids
@@ -38,7 +38,7 @@ module "alb" {
 
 module "alb_ingress" {
   source                              = "cloudposse/alb-ingress/aws"
-  version                             = "0.15.0"
+  version                             = "0.16.1"
   vpc_id                              = module.vpc.vpc_id
   default_target_group_enabled        = true
   unauthenticated_listener_arns       = [module.alb.http_listener_arn]
@@ -48,6 +48,7 @@ module "alb_ingress" {
 }
 
 resource "aws_sns_topic" "sns_topic" {
+  #bridgecrew:skip=BC_AWS_GENERAL_15:Skipping `Encrypt SNS Topic Data` in example/test modules
   name         = module.this.id
   display_name = "Test terraform-aws-alb-target-group-cloudwatch-sns-alarms"
   tags         = module.this.tags
