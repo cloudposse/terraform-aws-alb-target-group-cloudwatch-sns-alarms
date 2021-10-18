@@ -1,6 +1,6 @@
 module "httpcode_target_3xx_alarm_label" {
   source     = "cloudposse/label/null"
-  version    = "0.24.1"
+  version    = "0.25.0"
   attributes = ["3XX", "count", "high"]
 
   context = module.this.context
@@ -8,7 +8,7 @@ module "httpcode_target_3xx_alarm_label" {
 
 module "httpcode_target_4xx_alarm_label" {
   source     = "cloudposse/label/null"
-  version    = "0.24.1"
+  version    = "0.25.0"
   attributes = ["4XX", "count", "high"]
 
   context = module.this.context
@@ -16,7 +16,7 @@ module "httpcode_target_4xx_alarm_label" {
 
 module "httpcode_target_5xx_alarm_label" {
   source     = "cloudposse/label/null"
-  version    = "0.24.1"
+  version    = "0.25.0"
   attributes = ["5XX", "count", "high"]
 
   context = module.this.context
@@ -24,7 +24,7 @@ module "httpcode_target_5xx_alarm_label" {
 
 module "httpcode_elb_5xx_alarm_label" {
   source     = "cloudposse/label/null"
-  version    = "0.24.1"
+  version    = "0.25.0"
   attributes = ["ELB", "5XX", "count", "high"]
 
   context = module.this.context
@@ -32,7 +32,7 @@ module "httpcode_elb_5xx_alarm_label" {
 
 module "target_response_time_alarm_label" {
   source     = "cloudposse/label/null"
-  version    = "0.24.1"
+  version    = "0.25.0"
   attributes = ["target", "response", "high"]
 
   context = module.this.context
