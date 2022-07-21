@@ -1,233 +1,234 @@
 variable "name" {
-  type        = "string"
+  type        = string
   description = "Name (unique identifier for app or service)"
 }
 
 variable "namespace" {
-  type        = "string"
+  type        = string
   description = "Namespace (e.g. `lyr` or `lyric`)"
   default     = "lyric"
 }
 
 variable "delimiter" {
-  type        = "string"
+  type        = string
   description = "The delimiter to be used in labels."
   default     = "-"
 }
 
 variable "stage" {
-  type        = "string"
+  type        = string
   description = "Stage (e.g. `prod`, `dev`)"
 }
 
 variable "attributes" {
-  type        = "list"
+  type        = list(string)
   description = "List of attributes to add to label."
   default     = []
 }
 
 variable "tags" {
-  type        = "map"
+  type        = map(string)
   description = "Map of key-value pairs to use for tags."
   default     = {}
 }
 
 variable "enabled" {
-  type        = "string"
+  type        = string
   description = "Whether to create all resources."
   default     = "true"
 }
 
 variable "notify_arns" {
-  type        = "list"
+  type        = list(string)
   description = "A list of ARNs (i.e. SNS Topic ARN) to execute when this alarm transitions into ANY state from any other state. May be overridden by the value of a more specific {alarm,ok,insufficient_data}_actions variable. "
-  default     = [""]
+  default     = []
 }
 
 variable "notify_warn_arns" {
-  type        = "list"
+  type        = list(string)
   description = "A list of ARNs (i.e. SNS Topic ARN) to execute when this WARNING alarm transitions into ANY state from any other state. May be overridden by the value of a more specific {alarm,ok,insufficient_data}_warn_actions variable. "
-  default     = [""]
+  default     = []
 }
 
 variable "alarm_actions" {
-  type        = "list"
+  type        = list(string)
   description = "A list of ARNs (i.e. SNS Topic ARN) to execute when this alarm transitions into an ALARM state from any other state.  If set, this list takes precedence over notify_arns."
-  default     = [""]
+  default     = []
 }
 
 variable "alarm_warn_actions" {
-  type        = "list"
+  type        = list(string)
   description = "A list of ARNs (i.e. SNS Topic ARN) to execute when this WARNING alarm transitions into an ALARM state from any other state.  If set, this list takes precedence over notify_warn_arns."
-  default     = [""]
+  default     = []
 }
 
 variable "ok_actions" {
-  type        = "list"
+  type        = list(string)
   description = "A list of ARNs (i.e. SNS Topic ARN) to execute when this alarm transitions into an OK state from any other state. If set, this list takes precedence over notify_arns."
-  default     = [""]
+  default     = []
 }
 
 variable "ok_warn_actions" {
-  type        = "list"
+  type        = list(string)
   description = "A list of ARNs (i.e. SNS Topic ARN) to execute when this WARNING alarm transitions into an OK state from any other state. If set, this list takes precedence over notify_warn_arns."
-  default     = [""]
+  default     = []
 }
 
 variable "insufficient_data_actions" {
-  type        = "list"
+  type        = list(string)
   description = "A list of ARNs (i.e. SNS Topic ARN) to execute when this alarm transitions into an INSUFFICIENT_DATA state from any other state. If set, this list takes precedence over notify_arns."
-  default     = [""]
+  default     = []
 }
 
 variable "insufficient_data_warn_actions" {
-  type        = "list"
+  type        = list(string)
   description = "A list of ARNs (i.e. SNS Topic ARN) to execute when this WARNING alarm transitions into an INSUFFICIENT_DATA state from any other state. If set, this list takes precedence over notify_warn_arns."
-  default     = [""]
+  default     = []
 }
 
 variable "alb_name" {
-  type        = "string"
+  type        = string
   description = "The name of ALB to monitor."
 }
 
 variable "alb_arn_suffix" {
-  type        = "string"
+  type        = string
   description = "The ARN suffix of ALB."
 }
 
 variable "target_group_name" {
-  type        = "string"
+  type        = string
   description = "The name of the ALB Target Group to monitor."
 }
 
 variable "target_group_arn_suffix" {
-  type        = "string"
+  type        = string
   description = "The ARN suffix of ALB Target Group."
 }
 
 variable "evaluation_periods" {
-  type        = "string"
+  type        = string
   description = "Number of periods to evaluate for the alarm."
   default     = "2"
 }
 
 variable "period" {
-  type        = "string"
+  type        = string
   description = "Duration in seconds to evaluate for the alarm."
   default     = "60"
 }
 
 variable "target_4xx_count_threshold" {
-  type        = "string"
+  type        = string
   description = "The maximum count of 4XX requests over a period. A value `<=0` will disable the alert."
   default     = "0"
 }
 
 variable "target_4xx_count_warn_threshold" {
-  type        = "string"
+  type        = string
   description = "The maximum count of 4XX requests over a period. A value `<=0` will disable the alert."
   default     = "0"
 }
 
 variable "target_4xx_rate_threshold" {
-  type        = "string"
+  type        = string
   description = "The maximum rate of 4XX requests over a period. A value `<=0` will disable the alert."
   default     = "30"
 }
 
 variable "target_4xx_rate_warn_threshold" {
-  type        = "string"
+  type        = string
   description = "The maximum rate of 4XX requests over a period. A value `<=0` will disable the alert."
   default     = "10"
 }
 
 variable "target_5xx_count_threshold" {
-  type        = "string"
+  type        = string
   description = "The maximum count of 5XX requests over a period. A value `<=0` will disable the alert."
   default     = "0"
 }
 
 variable "target_5xx_count_warn_threshold" {
-  type        = "string"
+  type        = string
   description = "The maximum count of 5XX requests over a period. A value `<=0` will disable the alert."
   default     = "0"
 }
 
 variable "target_5xx_rate_threshold" {
-  type        = "string"
+  type        = string
   description = "The maximum rate of 5XX requests over a period. A value `<=0` will disable the alert."
   default     = "30"
 }
 
 variable "target_5xx_rate_warn_threshold" {
-  type        = "string"
+  type        = string
   description = "The maximum rate of 5XX requests over a period. A value `<=0` will disable the alert."
   default     = "10"
 }
 
 variable "elb_5xx_count_threshold" {
-  type        = "string"
+  type        = string
   description = "The maximum count of ELB 5XX requests over a period. A value `<=0` will disable the alert."
   default     = "0"
 }
 
 variable "elb_5xx_count_warn_threshold" {
-  type        = "string"
+  type        = string
   description = "The maximum count of ELB 5XX requests over a period. A value `<=0` will disable the alert."
   default     = "0"
 }
 
 variable "httpcode_alarm_description" {
-  type        = "string"
+  type        = string
   description = "The string to format and use as the httpcode alarm description."
   default     = "HTTPCode %v count for %v over %v last %d minute(s) over %v period(s)"
 }
 
 variable "httpcode_rate_alarm_description" {
-  type        = "string"
+  type        = string
   description = "The string to format and use as the httpcode rate alarm description."
   default     = "HTTPCode %v rate for %v over %v percent last %d minute(s) over %v period(s)"
 }
 
 variable "target_healthy_host_count_threshold" {
-  type        = "string"
+  type        = string
   description = "A value below which an alert will trigger for healthy hosts in a target group. A value `<=0` will disable the alert."
   default     = "1"
 }
 
 variable "target_healthy_host_count_warn_threshold" {
-  type        = "string"
+  type        = string
   description = "A value below which a WARNING alert will trigger for healthy hosts in a target group. A value `<=0` will disable the alert."
   default     = "0"
 }
 
 variable "target_healthy_host_alarm_description" {
-  type        = "string"
+  type        = string
   description = "The string to format and use as the healthy host alarm description."
   default     = "Healthy host count for %v below %v for last %d minute(s)"
 }
 
 variable "target_response_time_threshold" {
-  type        = "string"
+  type        = string
   description = "The maximum average target response time (in seconds) over a period. A value `<=0` will disable the alert."
   default     = "0"
 }
 
 variable "target_response_time_warn_threshold" {
-  type        = "string"
+  type        = string
   description = "The maximum average target response time (in seconds) over a period. A value `<=0` will disable the alert."
   default     = "0"
 }
 
 variable "target_response_time_alarm_description" {
-  type        = "string"
+  type        = string
   description = "The string to format and use as the target response time alarm description."
   default     = "Target Response Time average for %v over %v last %d minute(s) over %v period(s)"
 }
 
 variable "treat_missing_data" {
-  type        = "string"
+  type        = string
   description = "Sets how alarms handle missing data points. Values supported: missing, ignore, breaching and notBreaching."
   default     = "missing"
 }
+
