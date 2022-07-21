@@ -1,11 +1,11 @@
 locals {
   # default to using notify_arns unless a more specific action is specified.
-  alarm_actions                  = "${coalescelist(var.alarm_actions,var.notify_arns)}"
-  alarm_warn_actions             = "${coalescelist(var.alarm_warn_actions,var.notify_warn_arns)}"
-  ok_actions                     = "${coalescelist(var.ok_actions,var.notify_arns)}"
-  ok_warn_actions                = "${coalescelist(var.ok_warn_actions,var.notify_warn_arns)}"
-  insufficient_data_actions      = "${coalescelist(var.insufficient_data_actions,var.notify_arns)}"
-  insufficient_data_warn_actions = "${coalescelist(var.insufficient_data_warn_actions,var.notify_warn_arns)}"
+  alarm_actions                  = "${compact(coalescelist(var.alarm_actions,var.notify_arns))}"
+  alarm_warn_actions             = "${compact(coalescelist(var.alarm_warn_actions,var.notify_warn_arns))}"
+  ok_actions                     = "${compact(coalescelist(var.ok_actions,var.notify_arns))}"
+  ok_warn_actions                = "${compact(coalescelist(var.ok_warn_actions,var.notify_warn_arns))}"
+  insufficient_data_actions      = "${compact(coalescelist(var.insufficient_data_actions,var.notify_arns))}"
+  insufficient_data_warn_actions = "${compact(coalescelist(var.insufficient_data_warn_actions,var.notify_warn_arns))}"
 
   thresholds = {
     elb_5xx_count                  = "${max(var.elb_5xx_count_threshold, 0)}"
