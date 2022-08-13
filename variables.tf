@@ -232,3 +232,8 @@ variable "treat_missing_data" {
   default     = "missing"
 }
 
+variable "label_version" {
+  type        = string
+  description = "Which label version to use"
+  default     = "0.5.0"
+}
